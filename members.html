@@ -2,273 +2,202 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ZTA – Astrophotography</title>
+<title>ZTA Members – Upload Your Capture</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@300;600;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
-    font-family:'Segoe UI',Arial,sans-serif;
-    background:#000;color:#fff;overflow-x:hidden;
-    background:radial-gradient(circle at 50% 50%, #0a001f 0%, #000 70%);
-}
-a{text-decoration:none !important;color:inherit;}
+body{font-family:'Exo 2',sans-serif;background:#000;color:#fff;overflow-x:hidden;
+     background:radial-gradient(circle at 30% 70%,#0f0529 0%,#000 70%);}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.6;pointer-events:none;}
+a{text-decoration:none;color:inherit;}
 
-/* Starfield */
-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;}
-
-/* Ultra Premium Glassmorphism Navbar */
+/* Premium Navbar */
 .navbar{
-    position:fixed;top:0;left:0;width:100%;padding:20px 5%;
-    display:flex;justify-content:space-between;align-items:center;
-    background:rgba(10,10,30,0.4);backdrop-filter:blur(20px);
-    border-bottom:1px solid rgba(154,205,50,0.2);
-    z-index:9999;transition:all .6s;box-shadow:0 8px 32px rgba(0,0,0,0.6);
+    position:fixed;top:0;width:100%;padding:22px 6%;display:flex;
+    justify-content:space-between;align-items:center;z-index:9999;
+    background:rgba(10,5,40,0.6);backdrop-filter:blur(25px);
+    border-bottom:2px solid rgba(154,205,50,0.3);
+    box-shadow:0 20px 60px rgba(0,0,0,0.8);
 }
-.navbar.scrolled{background:rgba(5,5,20,0.8);backdrop-filter:blur(25px);}
-.logo{
-    font-size:38px;font-weight:900;letter-spacing:10px;
-    background:linear-gradient(90deg,#9acd32,#c6ff7a);
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;
-    text-shadow:0 0 30px rgba(154,205,50,0.6);
-}
-
-/* Hamburger */
-.hamburger{display:none;cursor:pointer;z-index:1001;}
-.bar{display:block;width:30px;height:3px;background:#9acd32;margin:7px 0;
-     border-radius:3px;transition:all .4s;box-shadow:0 0 10px #9acd32;}
-.hamburger.active .bar:nth-child(1){transform:translateY(10px) rotate(45deg);}
-.hamburger.active .bar:nth-child(2){opacity:0;}
-.hamburger.active .bar:nth-child(3){transform:translateY(-10px) rotate(-45deg);}
-
-.nav-links{display:flex;gap:40px;align-items:center;}
-.nav-links a{
-    font-size:17px;font-weight:600;position:relative;transition:all .4s;opacity:0.9;
-}
-.nav-links a::after{
-    content:'';position:absolute;bottom:-8px;left:50%;width:0;height:2px;
-    background:#9acd32;transition:all .4s;transform:translateX(-50%);
-    box-shadow:0 0 15px #9acd32;
-}
-.nav-links a:hover{opacity:1;transform:translateY(-3px);}
+.logo{font-family:'Orbitron',sans-serif;font-size:42px;font-weight:900;letter-spacing:16px;
+      background:linear-gradient(90deg,#9acd32,#72fe95);-webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;text-shadow:0 0 60px #9acd32;}
+.hamburger{display:none;cursor:pointer;}
+.hamburger span{display:block;width:34px;height:4px;background:#9acd32;margin:8px 0;
+                box-shadow:0 0 20px #9acd32;border-radius:4px;transition:all .6s;}
+.hamburger.active span:nth-child(1){transform:translateY(12px) rotate(45deg);}
+.hamburger.active span:nth-child(2){opacity:0;}
+.hamburger.active span:nth-child(3){transform:translateY(-12px) rotate(-45deg);}
+.nav-links{display:flex;gap:50px;align-items:center;}
+.nav-links a{font-size:19px;font-weight:700;position:relative;transition:all .5s;}
+.nav-links a::after{content:'';position:absolute;bottom:-12px;left:0;width:0;height:3px;
+                   background:#9acd32;box-shadow:0 0 30px #9acd32;transition:all .6s;}
 .nav-links a:hover::after{width:100%;}
-
-/* Auth Button – Changes to Profile */
-.auth-btn{
-    background:linear-gradient(45deg,#9acd32,#c6ff7a);color:#000;
-    padding:14px 32px;border-radius:50px;font-weight:900;letter-spacing:1px;
-    box-shadow:0 0 30px rgba(154,205,50,0.6);transition:all .4s;
+.nav-links a.signup{
+    background:linear-gradient(45deg,#9acd32,#72fe95);color:#000;padding:16px 40px;
+    border-radius:60px;font-weight:900;box-shadow:0 0 60px rgba(154,205,50,0.7);
 }
-.auth-btn:hover{transform:scale(1.1) translateY(-5px);box-shadow:0 0 50px rgba(154,205,50,0.8);}
 
 /* Hero */
 .hero{
-    height:100vh;display:flex;align-items:flex-end;padding-bottom:120px;
-    background:url('assets/background.jpg') center/cover no-repeat fixed;
-    position:relative;overflow:hidden;
+    height:80vh;display:flex;align-items:center;justify-content:center;position:relative;
+    background:url('assets/members-bg.jpg') center/cover no-repeat fixed;
 }
-.hero::before{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(135deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.95) 100%);
-}
-.hero-content{
-    position:relative;z-index:10;max-width:1400px;margin:0 auto;padding:0 5%;width:100%;
-}
-.hero-title{
-    font-size:clamp(60px,14vw,120px);font-weight:900;letter-spacing:15px;
-    background:linear-gradient(90deg,#9acd32,#ffffff,#9acd32);
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;
-    text-shadow:0 0 60px rgba(154,205,50,0.7);
-    animation:float 6s ease-in-out infinite;
-}
-.hero-subtitle{
-    font-size:clamp(18px,5vw,30px);letter-spacing:6px;color:#aaa;
-    animation:fadeIn 3s ease-out 1s forwards;opacity:0;
+.hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.85);}
+.hero h1{
+    font-family:'Orbitron',sans-serif;font-size:clamp(50px,12vw,120px);
+    background:linear-gradient(90deg,#9acd32,#c6ff7a);-webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;text-shadow:0 0 100px #9acd32;
 }
 
-/* Sections */
-.section{
-    padding:120px 5%;max-width:1400px;margin:0 auto;opacity:0;
-    transform:translateY(50px);transition:all 1s ease-out;
+/* Upload Area */
+.upload-section{
+    max-width:900px;margin:100px auto;padding:0 5%;text-align:center;
 }
-.section.visible{opacity:1;transform:translateY(0);}
-.section-title{
-    text-align:center;font-size:clamp(36px,8vw,56px);margin-bottom:70px;
-    background:linear-gradient(90deg,#9acd32,#c6ff7a);
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;
+.upload-box{
+    background:rgba(20,10,60,0.7);padding:60px;border-radius:35px;
+    border:3px dashed rgba(154,205,50,0.4);transition:all .6s;
 }
+.upload-box:hover{border-color:#9acd32;box-shadow:0 0 80px rgba(154,205,50,0.5);}
+#fileInput{display:none;}
+.upload-btn{
+    background:#9acd32;color:#000;padding:18px 50px;border-radius:60px;
+    font-weight:900;font-size:20px;cursor:pointer;margin:30px 0;
+    box-shadow:0 0 60px rgba(154,205,50,0.8);transition:all .5s;
+}
+.upload-btn:hover{background:#c6ff7a;transform:scale(1.1);}
 
-.intro-text{
-    text-align:center;font-size:19px;line-height:2;color:#ccc;max-width:1000px;margin:0 auto;
+/* Members Gallery */
+.gallery-grid{
+    max-width:1400px;margin:80px auto;padding:0 5%;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;
 }
+.gallery-item{
+    border-radius:25px;overflow:hidden;border:3px solid rgba(154,205,50,0.2);
+    box-shadow:0 30px 80px rgba(0,0,0,0.7);transition:all .8s;
+}
+.gallery-item:hover{border-color:#9acd32;box-shadow:0 60px 150px rgba(154,205,50,0.6);}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:all .8s;}
+.gallery-item:hover img{transform:scale(1.15);filter:brightness(1.3);}
 
-.features{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;margin-top:80px;
-}
-.feature-card{
-    background:rgba(15,15,40,0.4);border:1px solid rgba(154,205,50,0.2);
-    padding:40px;border-radius:20px;text-align:center;
-    transition:all .6s;backdrop-filter:blur(10px);
-}
-.feature-card:hover{
-    transform:translateY(-20px) scale(1.05);
-    border-color:#9acd32;box-shadow:0 20px 60px rgba(154,205,50,0.4);
-}
-.feature-title{
-    font-size:26px;background:linear-gradient(90deg,#9acd32,#c6ff7a);
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;margin-bottom:16px;
-}
-
-footer{
-    text-align:center;padding:80px 20px;color:#555;font-size:15px;
-    border-top:1px solid rgba(154,205,50,0.1);
-}
-
-/* Animations */
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
-@keyframes fadeIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
-
-/* Mobile */
-@media (max-width: 868px){
-    .hamburger{display:block;}
-    .nav-links{
-        position:fixed;top:0;left:-100%;width:320px;height:100vh;
-        background:linear-gradient(135deg,#0a001f,#000);
-        padding:120px 40px;flex-direction:column;transition:left .5s ease;
-        z-index:9998;box-shadow:15px 0 50px rgba(0,0,0,0.8);gap:40px;
-    }
-    .nav-links.active{left:0;}
-    .nav-links a{font-size:26px;}
-    .auth-btn{padding:18px 40px;font-size:22px;}
-}
+footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
+       border-top:2px solid rgba(154,205,50,0.2);}
 </style>
 </head>
 <body>
 
-<!-- Starfield -->
 <canvas id="stars"></canvas>
 
-<!-- Navbar – Now includes Members + Sign Up → Profile -->
-<div class="navbar" id="navbar">
+<!-- Navbar -->
+<div class="navbar">
     <div class="logo">ZTA</div>
     <div class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('active')">
-        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        <span></span><span></span><span></span>
     </div>
     <div class="nav-links">
+        <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="gallery.html">Gallery</a>
         <a href="blog.html">Blog</a>
         <a href="gears.html">Gears</a>
         <a href="members.html">Members</a>
-        <a href="login.html" id="authButton" class="auth-btn">Sign Up</a>
+        <a href="login.html" id="authButton" class="signup">Sign Up</a>
     </div>
 </div>
 
 <!-- Hero -->
 <div class="hero">
-    <div class="hero-content">
-        <h1 class="hero-title">ZTA</h1>
-        <p class="hero-subtitle">ASTROPHOTOGRAPHY • DEEP SPACE • INFINITY</p>
+    <h1>MEMBERS GALLERY</h1>
+</div>
+
+<!-- Upload Section -->
+<div class="upload-section">
+    <div class="upload-box">
+        <h2 style="font-size:36px;margin-bottom:20px;background:linear-gradient(90deg,#9acd32,#c6ff7a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            Share Your Cosmic Capture
+        </h2>
+        <p style="color:#aaa;font-size:18px;margin-bottom:30px;">
+            Upload your best astrophoto — become part of the ZTA legacy
+        </p>
+        <label for="fileInput" class="upload-btn">Choose Image</label>
+        <input type="file" id="fileInput" accept="image/*">
+        <p id="uploadStatus" style="margin-top:20px;color:#72fe95;font-size:16px;"></p>
     </div>
 </div>
 
-<div class="section">
-    <h2 class="section-title">Welcome to ZTA</h2>
-    <p class="intro-text">
-        Where light from billions of years ago meets human ingenuity.<br>
-        Every image is a silent conversation with the universe.
-    </p>
+<!-- Members Gallery -->
+<div class="gallery-grid" id="galleryGrid">
+    <!-- Photos will appear here automatically -->
 </div>
 
-<div class="section">
-    <div class="features">
-        <div class="feature-card">
-            <h3 class="feature-title">Cosmic Precision</h3>
-            <p class="feature-text">Sub-arcsecond tracking and multi-hour integrations reveal details invisible to the naked eye.</p>
-        </div>
-        <div class="feature-card">
-            <h3 class="feature-title">Artisan Engineering</h3>
-            <p class="feature-text">Every adapter, filter wheel, and mount is designed and built in-house for maximum performance.</p>
-        </div>
-        <div class="feature-card">
-            <h3 class="feature-title">Stories in Light</h3>
-            <p class="feature-text">From first light to final stack — the journey behind every deep-sky masterpiece.</p>
-        </div>
-    </div>
-</div>
+<footer>© 2025 ZTA — Community Gallery</footer>
 
-<footer>© 2025 ZTA — Crafted from the Stars</footer>
-
-<!-- Firebase + Login Fix + Starfield -->
+<!-- Firebase + Storage -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 <script src="firebase.js"></script>
 
 <script>
-// AUTO CHANGE "Sign Up" → "Profile" WHEN LOGGED IN
+// PROTECT PAGE
 ZeroX.onAuthChange(user => {
-    const btn = document.getElementById("authButton");
-    if (user) {
-        btn.textContent = "Profile";
-        btn.href = "profile.html";
-    } else {
-        btn.textContent = "Sign Up";
-        btn.href = "login.html";
+    if (!user) {
+        alert("Members-only area. Please log in.");
+        window.location.href = "login.html";
+        return;
     }
+    document.getElementById("authButton").textContent = "Profile";
+    document.getElementById("authButton").href = "profile.html";
 });
 
-// Navbar scroll effect
-window.addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-});
+// UPLOAD PHOTO
+document.getElementById("fileInput").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-// Fade-in sections
-document.addEventListener('scroll', () => {
-    document.querySelectorAll('.section').forEach(sec => {
-        if (sec.getBoundingClientRect().top < window.innerHeight * 0.8) {
-            sec.classList.add('visible');
-        }
+    const user = ZeroX.user();
+    const storageRef = firebase.storage().ref("members/" + user.uid + "_" + Date.now() + ".jpg");
+
+    document.getElementById("uploadStatus").textContent = "Uploading...";
+
+    storageRef.put(file).then(snapshot => {
+        snapshot.ref.getDownloadURL().then(url => {
+            addPhotoToGallery(url, user.displayName || "ZTA Member");
+            document.getElementById("uploadStatus").textContent = "Uploaded successfully!";
+            e.target.value = ""; // reset input
+        });
+    }).catch(err => {
+        document.getElementById("uploadStatus").textContent = "Upload failed: " + err.message;
     });
 });
 
-// Fixed Smooth Starfield
+function addPhotoToGallery(url, name) {
+    const grid = document.getElementById("galleryGrid");
+    const item = document.createElement("div");
+    item.className = "gallery-item";
+    item.innerHTML = `<img src="${url}" alt="by ${name}"><div style="padding:15px;background:rgba(0,0,0,0.7);font-size:14px;color:#aaa;">${name}</div>`;
+    grid.prepend(item); // newest first
+}
+
+// Starfield
 const canvas = document.getElementById('stars');
 const ctx = canvas.getContext('2d');
 let w = canvas.width = innerWidth;
 let h = canvas.height = innerHeight;
 const stars = [];
-
-for (let i = 0; i < 400; i++) {
-    stars.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 1.5 + 0.5,
-        s: Math.random() * 0.8 + 0.2
-    });
+for(let i=0;i<700;i++){
+    stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2,s:Math.random()*0.8+0.2});
 }
-
-function draw() {
-    ctx.clearRect(0, 0, w, h);
-    stars.forEach(s => {
-        ctx.fillStyle = `rgba(154,205,50,${s.s})`;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fill();
-        s.y += 0.5;
-        if (s.y > h) s.y = 0;
-    });
-    requestAnimationFrame(draw);
+function animate(){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle="#9acd32";
+    stars.forEach(s=>{ctx.globalAlpha=s.s;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+        s.y+=0.8;if(s.y>h)s.y=0;});
+    requestAnimationFrame(animate);
 }
-draw();
-
-window.addEventListener('resize', () => {
-    w = canvas.width = innerWidth;
-    h = canvas.height = innerHeight;
-});
+animate();
+window.addEventListener('resize',()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;});
 </script>
-
 </body>
 </html>
