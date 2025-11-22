@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZTA – My Gear</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@300;600;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Exo 2',sans-serif;background:#000;color:#fff;overflow-x:hidden;
+     background:radial-gradient(circle at 30% 70%,#0f0529 0%,#000 70%);}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.6;pointer-events:none;}
+a{text-decoration:none;color:inherit;}
+
+/* Premium Navbar */
+.navbar{
+    position:fixed;top:0;width:100%;padding:22px 6%;display:flex;
+    justify-content:space-between;align-items:center;z-index:9999;
+    background:rgba(10,5,40,0.6);backdrop-filter:blur(25px);
+    border-bottom:2px solid rgba(154,205,50,0.3);
+    box-shadow:0 20px 60px rgba(0,0,0,0.8);
+}
+.logo{font-family:'Orbitron',sans-serif;font-size:42px;font-weight:900;letter-spacing:16px;
+      background:linear-gradient(90deg,#9acd32,#72fe95);-webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;text-shadow:0 0 60px #9acd32;}
+.hamburger{display:none;cursor:pointer;}
+.hamburger span{display:block;width:34px;height:4px;background:#9acd32;margin:8px 0;
+                box-shadow:0 0 20px #9acd32;border-radius:4px;transition:all .6s;}
+.hamburger.active span:nth-child(1){transform:translateY(12px) rotate(45deg);}
+.hamburger.active span:nth-child(2){opacity:0;}
+.hamburger.active span:nth-child(3){transform:translateY(-12px) rotate(-45deg);}
+.nav-links{display:flex;gap:50px;align-items:center;}
+.nav-links a{font-size:19px;font-weight:700;position:relative;transition:all .5s;}
+.nav-links a::after{content:'';position:absolute;bottom:-12px;left:0;width:0;height:3px;
+                   background:#9acd32;box-shadow:0 0 30px #9acd32;transition:all .6s;}
+.nav-links a:hover::after{width:100%;}
+.nav-links a.signup{
+    background:linear-gradient(45deg,#9acd32,#72fe95);color:#000;padding:16px 40px;
+    border-radius:60px;font-weight:900;box-shadow:0 0 60px rgba(154,205,50,0.7);
+}
+
+/* Hero */
+.hero{
+    height:90vh;display:flex;align-items:center;justify-content:center;position:relative;
+    background:url('assets/gear-hero.jpg') center/cover no-repeat fixed;
+}
+.hero::before{content:"";position:absolute;inset:0;
+              background:linear-gradient(135deg,rgba(0,0,40,0.8),rgba(0,0,0,0.95));}
+.hero h1{
+    font-family:'Orbitron',sans-serif;font-size:clamp(60px,14vw,130px);
+    background:linear-gradient(90deg,#9acd32,#c6ff7a);-webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;text-shadow:0 0 100px #9acd32;
+    animation:levitate 8s ease-in-out infinite;
+}
+
+/* Gear Grid */
+.gear-container{
+    max-width:1400px;margin:0 auto;padding:120px 6%;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:60px;
+}
+.gear-card{
+    background:rgba(20,10,60,0.5);border-radius:32px;overflow:hidden;
+    border:2px solid rgba(154,205,50,0.2);backdrop-filter:blur(20px);
+    transition:all .8s;box-shadow:0 30px 100px rgba(0,0,0,0.7);
+}
+.gear-card:hover{
+    transform:translateY(-40px) scale(1.05);border-color:#9acd32;
+    box-shadow:0 80px 200px rgba(154,205,50,0.6);
+}
+.gear-card img{width:100%;height:280px;object-fit:cover;transition:all .8s;}
+.gear-card:hover img{transform:scale(1.15);filter:brightness(1.4);}
+.gear-content{padding:40px;text-align:center;}
+.gear-name{
+    font-size:32px;margin-bottom:16px;
+    background:linear-gradient(90deg,#9acd32,#72fe95);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.gear-specs{
+    color:#ccc;font-size:17px;line-height:1.9;margin-bottom:25px;
+}
+.gear-price{
+    font-size:24px;color:#9acd32;font-weight:bold;margin-bottom:20px;
+}
+.buy-btn{
+    background:#9acd32;color:#000;padding:16px 40px;border-radius:60px;
+    font-weight:900;font-size:18px;transition:all .5s;
+    box-shadow:0 0 50px rgba(154,205,50,0.8);
+}
+.buy-btn:hover{background:#c6ff7a;transform:scale(1.15);}
+
+footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
+       border-top:2px solid rgba(154,205,50,0.2);}
+
+@keyframes levitate{0%,100%{transform:translateY(0);}50%{transform:translateY(-50px);}}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">ZTA</div>
+    <div class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('active')">
+        <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="blog.html">Blog</a>
+        <a href="gears.html">Gears</a>
+        <a href="members.html">Members</a>
+        <a href="login.html" id="authButton" class="signup">Sign Up</a>
+    </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>MY GEAR</h1>
+</div>
+
+<!-- Gear Showcase -->
+<div class="gear-container">
+    <div class="gear-card">
+        <img src="assets/gear1.jpg" alt="Telescope">
+        <div class="gear-content">
+            <h3 class="gear-name">10" Newtonian Astrograph</h3>
+            <div class="gear-specs">f/4 • Carbon Fiber Tube • Custom Baffle<br>Hand-ground Primary Mirror</div>
+            <div class="gear-price">$2,800</div>
+            <button class="buy-btn">View Details</button>
+        </div>
+    </div>
+
+    <div class="gear-card">
+        <img src="assets/gear2.jpg" alt="Mount">
+        <div class="gear-content">
+            <h3 class="gear-name">Zero-Backlash EQ Mount</h3>
+            <div class="gear-specs">CNC Machined • Harmonic Drive<br>0.2 arcsec Tracking Accuracy</div>
+            <div class="gear-price">$1,950</div>
+            <button class="buy-btn">View Details</button>
+        </div>
+    </div>
+
+    <div class="gear-card">
+        <img src="assets/gear3.jpg" alt="Camera">
+        <div class="gear-content">
+            <h3 class="gear-name">ZWO ASI6200MM Pro</h3>
+            <div class="gear-specs">62MP Full-Frame • Cooled Mono<br>3.76μm pixels • 16-bit</div>
+            <div class="gear-price">$3,799</div>
+            <button class="buy-btn">View Details</button>
+        </div>
+    </div>
+
+    <div class="gear-card">
+        <img src="assets/gear4.jpg" alt="Filters">
+        <div class="gear-content">
+            <h3 class="gear-name">Custom 2" Narrowband Set</h3>
+            <div class="gear-specs">Ha 3.5nm • OIII 3nm • SII 3nm<br>Hand-selected Interference Coating</div>
+            <div class="gear-price">$1,200</div>
+            <button class="buy-btn">View Details</button>
+        </div>
+    </div>
+</div>
+
+<footer>© 2025 ZTA — Gear That Reaches the Stars</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+// Sign Up → Profile
+ZeroX.onAuthChange(user => {
+    const btn = document.getElementById("authButton");
+    if (user) {
+        btn.textContent = "Profile";
+        btn.href = "profile.html";
+        btn.style.background = "linear-gradient(45deg,#9acd32,#72fe95)";
+    } else {
+        btn.textContent = "Sign Up";
+        btn.href = "login.html";
+    }
+});
+
+// Starfield
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let w = canvas.width = innerWidth;
+let h = canvas.height = innerHeight;
+const stars = [];
+for(let i = 0; i < 700; i++){
+    stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2,s:Math.random()*0.8+0.2});
+}
+function animate(){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = "#9acd32";
+    stars.forEach(s => {
+        ctx.globalAlpha = s.s;
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fill();
+        s.y += 0.8;
+        if(s.y > h) s.y = 0;
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+window.addEventListener('resize',()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;});
+</script>
+</body>
+</html>
