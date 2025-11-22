@@ -13,11 +13,9 @@
     }
     a{text-decoration:none !important;color:inherit;}
 
-    /* Animated Starfield + Floating Particles */
     canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;}
-    .particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;}
 
-    /* Ultra Premium Glassmorphism Navbar */
+    /* Your exact premium navbar */
     .navbar{
         position:fixed;top:0;left:0;width:100%;padding:20px 5%;
         display:flex;justify-content:space-between;align-items:center;
@@ -33,122 +31,92 @@
         -webkit-text-fill-color:transparent;
         text-shadow:0 0 30px rgba(154,205,50,0.6);
     }
-
-    /* Hamburger */
     .hamburger{display:none;cursor:pointer;z-index:1001;}
-    .bar{
-        display:block;width:30px;height:3px;background:#9acd32;margin:7px 0;
-        border-radius:3px;transition:all .4s;box-shadow:0 0 10px #9acd32;
-    }
+    .bar{display:block;width:30px;height:3px;background:#9acd32;margin:7px 0;
+         border-radius:3px;transition:all .4s;box-shadow:0 0 10px #9acd32;}
     .hamburger.active .bar:nth-child(1){transform:translateY(10px) rotate(45deg);}
     .hamburger.active .bar:nth-child(2){opacity:0;}
     .hamburger.active .bar:nth-child(3){transform:translateY(-10px) rotate(-45deg);}
-
-    .nav-links{
-        display:flex;gap:40px;
-    }
-    .nav-links a{
-        font-size:17px;font-weight:600;position:relative;
-        transition:all .4s;opacity:0.9;
-    }
-    .nav-links a::after{
-        content:'';position:absolute;bottom:-8px;left:50%;width:0;height:2px;
-        background:#9acd32;transition:all .4s;transform:translateX(-50%);
-        box-shadow:0 0 15px #9acd32;
-    }
+    .nav-links{display:flex;gap:40px;align-items:center;}
+    .nav-links a{font-size:17px;font-weight:600;position:relative;transition:all .4s;opacity:0.9;}
+    .nav-links a::after{content:'';position:absolute;bottom:-8px;left:50%;width:0;height:2px;
+                       background:#9acd32;transition:all .4s;transform:translateX(-50%);box-shadow:0 0 15px #9acd32;}
     .nav-links a:hover{opacity:1;transform:translateY(-3px);}
     .nav-links a:hover::after{width:100%;}
     .nav-links a.signup{
-        background:linear-gradient(45deg,#9acd32,#c6ff7a);
-        color:#000;padding:14px 32px;border-radius:50px;
-        font-weight:900;letter-spacing:1px;
-        box-shadow:0 0 30px rgba(154,205,50,0.6);
+        background:linear-gradient(45deg,#9acd32,#c6ff7a);color:#000;padding:14px 32px;
+        border-radius:50px;font-weight:900;letter-spacing:1px;box-shadow:0 0 30px rgba(154,205,50,0.6);
         transition:all .4s;
     }
-    .nav-links a.signup:hover{
-        transform:scale(1.1) translateY(-5px);
-        box-shadow:0 0 50px rgba(154,205,50,0.8);
-    }
+    .nav-links a.signup:hover{transform:scale(1.1) translateY(-5px);box-shadow:0 0 50px rgba(154,205,50,0.8);}
 
-    /* Hero */
-    .hero{
-        height:100vh;display:flex;align-items:flex-end;padding-bottom:120px;
-        background:url('assets/background.jpg') center/cover no-repeat fixed;
-        position:relative;overflow:hidden;
-    }
-    .hero::before{
-        content:"";position:absolute;inset:0;
-        background:linear-gradient(135deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.95) 100%);
-    }
-    .hero-content{
-        position:relative;z-index:10;max-width:1400px;margin:0 auto;padding:0 5%;width:100%;
-    }
-    .hero-title{
-        font-size:clamp(60px,14vw,120px);font-weight:900;letter-spacing:15px;
-        background:linear-gradient(90deg,#9acd32,#ffffff,#9acd32);
-        -webkit-background-clip:text;background-clip:text;
-        -webkit-text-fill-color:transparent;
-        text-shadow:0 0 60px rgba(154,205,50,0.7);
-        animation:float 6s ease-in-out infinite;
-    }
-    .hero-subtitle{
-        font-size:clamp(18px,5vw,30px);letter-spacing:6px;color:#aaa;
-        animation:fadeIn 3s ease-out 1s forwards;opacity:0;
-    }
+    /* Hero (unchanged) */
+    .hero{height:100vh;display:flex;align-items:flex-end;padding-bottom:120px;
+          background:url('assets/background.jpg') center/cover no-repeat fixed;position:relative;overflow:hidden;}
+    .hero::before{content:"";position:absolute;inset:0;
+                  background:linear-gradient(135deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.95) 100%);}
+    .hero-content{position:relative;z-index:10;max-width:1400px;margin:0 auto;padding:0 5%;width:100%;}
+    .hero-title{font-size:clamp(60px,14vw,120px);font-weight:900;letter-spacing:15px;
+                background:linear-gradient(90deg,#9acd32,#ffffff,#9acd32);
+                -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+                text-shadow:0 0 60px rgba(154,205,50,0.7);animation:float 6s ease-in-out infinite;}
+    .hero-subtitle{font-size:clamp(18px,5vw,30px);letter-spacing:6px;color:#aaa;
+                   animation:fadeIn 3s ease-out 1s forwards;opacity:0;}
 
-    /* Sections with Fade-in Animation */
-    .section{
-        padding:120px 5%;max-width:1400px;margin:0 auto;opacity:0;
-        transform:translateY(50px);transition:all 1s ease-out;
-    }
+    /* Sections */
+    .section{padding:120px 5%;max-width:1400px;margin:0 auto;opacity:0;
+             transform:translateY(50px);transition:all 1s ease-out;}
     .section.visible{opacity:1;transform:translateY(0);}
-    .section-title{
-        text-align:center;font-size:clamp(36px,8vw,56px);margin-bottom:70px;
-        background:linear-gradient(90deg,#9acd32,#c6ff7a);
-        -webkit-background-clip:text;background-clip:text;
-        -webkit-text-fill-color:transparent;
-    }
+    .section-title{text-align:center;font-size:clamp(36px,8vw,56px);margin-bottom:70px;
+                   background:linear-gradient(90deg,#9acd32,#c6ff7a);
+                   -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-    .intro-text{
-        text-align:center;font-size:19px;line-height:2;color:#ccc;max-width:1000px;margin:0 auto;
+    /* NEW: Highlighted Blog Section */
+    .blog-highlight{max-width:1400px;margin:0 auto;padding:0 5%;margin-bottom:100px;}
+    .blog-highlight .section-title{margin-bottom:50px;}
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:40px;}
+    .blog-card{
+        background:rgba(15,15,40,0.5);border-radius:22px;overflow:hidden;
+        border:2px solid rgba(154,205,50,0.2);backdrop-filter:blur(12px);
+        transition:all .7s;box-shadow:0 20px 60px rgba(0,0,0,0.6);
     }
+    .blog-card:hover{
+        transform:translateY(-25px) scale(1.04);border-color:#9acd32;
+        box-shadow:0 40px 120px rgba(154,205,50,0.5);
+    }
+    .blog-card img{width:100%;height:220px;object-fit:cover;transition:all .7s;}
+    .blog-card:hover img{transform:scale(1.15);filter:brightness(1.3);}
+    .blog-content{padding:30px;}
+    .blog-title{font-size:24px;margin-bottom:12px;
+                background:linear-gradient(90deg,#9acd32,#c6ff7a);
+                -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .blog-meta{color:#777;font-size:14px;margin-bottom:15px;letter-spacing:1px;}
+    .read-more{
+        display:inline-block;background:#9acd32;color:#000;padding:12px 28px;
+        border-radius:50px;font-weight:900;transition:all .4s;
+        box-shadow:0 0 40px rgba(154,205,50,0.7);
+    }
+    .read-more:hover{background:#c6ff7a;transform:scale(1.1);}
 
-    .features{
-        display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;margin-top:80px;
-    }
-    .feature-card{
-        background:rgba(15,15,40,0.4);border:1px solid rgba(154,205,50,0.2);
-        padding:40px;border-radius:20px;text-align:center;
-        transition:all .6s;backdrop-filter:blur(10px);
-    }
-    .feature-card:hover{
-        transform:translateY(-20px) scale(1.05);
-        border-color:#9acd32;box-shadow:0 20px 60px rgba(154,205,50,0.4);
-    }
-    .feature-title{
-        font-size:26px;background:linear-gradient(90deg,#9acd32,#c6ff7a);
-        -webkit-background-clip:text;background-clip:text;
-        -webkit-text-fill-color:transparent;margin-bottom:16px;
-    }
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;margin-top:80px;}
+    .feature-card{background:rgba(15,15,40,0.4);border:1px solid rgba(154,205,50,0.2);
+                  padding:40px;border-radius:20px;text-align:center;transition:all .6s;backdrop-filter:blur(10px);}
+    .feature-card:hover{transform:translateY(-20px) scale(1.05);border-color:#9acd32;
+                        box-shadow:0 20px 60px rgba(154,205,50,0.4);}
+    .feature-title{font-size:26px;background:linear-gradient(90deg,#9acd32,#c6ff7a);
+                   -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px;}
 
-    footer{
-        text-align:center;padding:80px 20px;color:#555;font-size:15px;
-        border-top:1px solid rgba(154,205,50,0.1);
-    }
+    footer{text-align:center;padding:80px 20px;color:#555;font-size:15px;
+           border-top:1px solid rgba(154,205,50,0.1);}
 
-    /* Animations */
     @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
     @keyframes fadeIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
-    /* Mobile */
-    @media (max-width: 868px){
+    @media (max-width:868px){
         .hamburger{display:block;}
-        .nav-links{
-            position:fixed;top:0;left:-100%;width:320px;height:100vh;
-            background:linear-gradient(135deg,#0a001f,#000);
-            padding:120px 40px;flex-direction:column;transition:left .5s ease;
-            z-index:9998;box-shadow:15px 0 50px rgba(0,0,0,0.8);gap:40px;
-        }
+        .nav-links{position:fixed;top:0;left:-100%;width:320px;height:100vh;
+                   background:linear-gradient(135deg,#0a001f,#000);padding:120px 40px;
+                   flex-direction:column;transition:left .5s ease;z-index:9998;gap:40px;}
         .nav-links.active{left:0;}
         .nav-links a{font-size:26px;}
         .nav-links a.signup{padding:18px 40px;font-size:22px;}
@@ -157,11 +125,8 @@
 </head>
 <body>
 
-<!-- Premium Starfield + Particles -->
 <canvas id="stars"></canvas>
-<div class="particles" id="particles"></div>
 
-<!-- Navbar -->
 <div class="navbar" id="navbar">
     <div class="logo">ZTA</div>
     <div class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('active')">
@@ -172,11 +137,11 @@
         <a href="gallery.html">Gallery</a>
         <a href="blog.html">Blog</a>
         <a href="gears.html">Gears</a>
-        <a href="login.html" class="signup">Sign Up</a>
+        <a href="members.html">Members</a>
+        <a href="login.html" id="authButton" class="signup">Sign Up</a>
     </div>
 </div>
 
-<!-- Hero -->
 <div class="hero">
     <div class="hero-content">
         <h1 class="hero-title">ZTA</h1>
@@ -184,54 +149,80 @@
     </div>
 </div>
 
-<!-- Sections -->
-<div class="section"><h2 class="section-title">Welcome to ZTA</h2>
+<div class="section">
+    <h2 class="section-title">Welcome to ZTA</h2>
     <p class="intro-text">
         Where light from billions of years ago meets human ingenuity.<br>
         Every image is a silent conversation with the universe.
     </p>
 </div>
 
+<!-- YOUR BLOGS HIGHLIGHTED ON HOMEPAGE -->
+<div class="blog-highlight">
+    <h2 class="section-title">Latest from the Cosmos</h2>
+    <div class="blog-grid">
+        <div class="blog-card">
+            <img src="assets/blog1.jpg" alt="Orion">
+            <div class="blog-content">
+                <h3 class="blog-title">40 Hours on Orion from a City Rooftop</h3>
+                <div class="blog-meta">March 15, 2025 • 14 min read</div>
+                <a href="blog.html#post1" class="read-more">Read Now →</a>
+            </div>
+        </div>
+        <div class="blog-card">
+            <img src="assets/blog2.jpg" alt="Mount">
+            <div class="blog-content">
+                <h3 class="blog-title">Building a $700 Zero-Backlash Mount</h3>
+                <div class="blog-meta">February 28, 2025 • 22 min read</div>
+                <a href="blog.html#post2" class="read-more">Read Now →</a>
+            </div>
+        </div>
+        <div class="blog-card">
+            <img src="assets/blog3.jpg" alt="Comet">
+            <div class="blog-content">
+                <h3 class="blog-title">Live Capture: Comet C/2024 S1</h3>
+                <div class="blog-meta">January 8, 2025 • 11 min read</div>
+                <a href="blog.html#post3" class="read-more">Read Now →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="section">
     <div class="features">
-        <div class="feature-card"><h3 class="feature-title">Cosmic Precision</h3>
-            <p class="feature-text">Sub-arcsecond tracking and multi-hour integrations reveal details invisible to the naked eye.</p></div>
-        <div class="feature-card"><h3 class="feature-title">Artisan Engineering</h3>
-            <p class="feature-text">Every adapter, filter wheel, and mount is designed and built in-house for maximum performance.</p></div>
-        <div class="feature-card"><h3 class="feature-title">Stories in Light</h3>
-            <p class="feature-text">From first light to final stack — the journey behind every deep-sky masterpiece.</p></div>
+        <div class="feature-card"><h3 class="feature-title">Cosmic Precision</h3><p class="feature-text">Sub-arcsecond tracking and multi-hour integrations.</p></div>
+        <div class="feature-card"><h3 class="feature-title">Artisan Engineering</h3><p class="feature-text">Every piece of gear designed and built in-house.</p></div>
+        <div class="feature-card"><h3 class="feature-title">Stories in Light</h3><p class="feature-text">The journey behind every deep-sky masterpiece.</p></div>
     </div>
 </div>
 
 <footer>© 2025 ZTA — Crafted from the Stars</footer>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="firebase.js"></script>
 
-<!-- Premium Animations -->
 <script>
-// Navbar scroll effect
-window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);});
-
-// Fade-in sections
-document.addEventListener('scroll',()=>{
-    document.querySelectorAll('.section').forEach(sec=>{
-        if(sec.getBoundingClientRect().top < window.innerHeight*0.8) sec.classList.add('visible');
-    });
+// Sign Up → Profile
+ZeroX.onAuthChange(user => {
+    const btn = document.getElementById("authButton");
+    if (user) { btn.textContent = "Profile"; btn.href = "profile.html"; }
+    else { btn.textContent = "Sign Up"; btn.href = "login.html"; }
 });
 
-// Ultra smooth starfield
-const canvas=document.getElementById('stars');const ctx=canvas.getContext('2d');
-canvas.width=innerWidth;canvas.height=innerHeight;
-const stars=[];for(let i=0;i<400;i++)stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5+0.5,s:Math.random()*0.8+0.2});
-function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);
-    stars.forEach(s=>{ctx.fillStyle=`rgba(154,205,50,${s.s})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
-        s.y+=0.5;if(s.y>canvas.height)s.y=0;});
-    requestAnimationFrame(draw);}draw();
-window.addEventListener('resize',()=>{canvas.width=innerWidth;canvas.height=innerHeight;});
-</script>
+// Scroll + Fade + Starfield (exactly your original code, fixed)
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);});
+document.addEventListener('scroll',()=>{document.querySelectorAll('.section,.blog-highlight').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*0.8)el.classList.add('visible');});});
 
+const canvas=document.getElementById('stars');const ctx=canvas.getContext('2d');
+let w=canvas.width=innerWidth,h=canvas.height=innerHeight;
+const stars=[];
+for(let i=0;i<400;i++)stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5+0.5,s:Math.random()*0.8+0.2});
+function draw(){ctx.clearRect(0,0,w,h);
+    stars.forEach(s=>{ctx.fillStyle=`rgba(154,205,50,${s.s})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+        s.y+=0.5;if(s.y>h)s.y=0;});
+    requestAnimationFrame(draw);}draw();
+window.addEventListener('resize',()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;});
+</script>
 </body>
 </html>
