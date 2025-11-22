@@ -1,24 +1,23 @@
 // firebase.js
-// Updated for your new project: astrophotography-with-zerox
+// Latest config for project: zerox-a7ed6
 const firebaseConfig = {
-  apiKey: "AIzaSyAvoeiw_fwmSkFN97hGzSsUTn2KJ1G2jQc",
-  authDomain: "astrophotography-with-zerox.firebaseapp.com",
-  databaseURL: "https://astrophotography-with-zerox-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "astrophotography-with-zerox",
-  storageBucket: "astrophotography-with-zerox.firebasestorage.app",
-  messagingSenderId: "847847244230",
-  appId: "1:847847244230:web:ecd8f9066f385a025072c7",
-  measurementId: "G-38YEEM9D71"
+  apiKey: "AIzaSyDelkwsOVmHcGrP4MV6o0weFrPyrjsExvM",
+  authDomain: "zerox-a7ed6.firebaseapp.com",
+  projectId: "zerox-a7ed6",
+  storageBucket: "zerox-a7ed6.firebasestorage.app",
+  messagingSenderId: "847831795606",
+  appId: "1:847831795606:web:43f71bc1cc8f7f9bbe7fb7",
+  measurementId: "G-MCRR6C3XQ8"
 };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// ZTA Auth Helper – Clean & Powerful
-const ZTA = {
-    // Sign up
+// ZTA / ZeroX Auth System (Ultra Clean & Premium)
+const ZeroX = {
+    // Sign Up
     signup() {
-        const name = document.getElementById("regName")?.value.trim() || "User";
+        const name = document.getElementById("regName")?.value.trim() || "Cosmonaut";
         const email = document.getElementById("regEmail")?.value.trim();
         const password = document.getElementById("regPassword")?.value;
 
@@ -28,10 +27,10 @@ const ZTA = {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(cred => cred.user.updateProfile({ displayName: name }))
             .then(() => {
-                alert("Account created successfully!");
+                alert("Welcome to the cosmos, " + name + "!");
                 window.location.href = "index.html";
             })
-            .catch(err => alert("Sign Up failed: " + err.message));
+            .catch(err => alert("Sign-up failed: " + err.message));
     },
 
     // Login
@@ -39,7 +38,7 @@ const ZTA = {
         const email = document.getElementById("loginEmail")?.value.trim();
         const password = document.getElementById("loginPassword")?.value;
 
-        if (!email || !password) return alert("Please enter email & password");
+        if (!email || !password) return alert("Enter email & password");
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => window.location.href = "index.html")
@@ -51,19 +50,19 @@ const ZTA = {
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
             .then(() => window.location.href = "index.html")
-            .catch(err => alert("Google Sign-In failed: " + err.message));
+            .catch(err => alert("Google login failed: " + err.message));
     },
 
     // Logout
     logout() {
         firebase.auth().signOut()
             .then(() => {
-                alert("Logged out successfully");
+                alert("Logged out. See you among the stars.");
                 window.location.reload();
             });
     },
 
-    // Get current user
+    // Current user
     user() {
         return firebase.auth().currentUser;
     },
@@ -74,11 +73,11 @@ const ZTA = {
     }
 };
 
-// Auto log current user status in console (optional)
-ZTA.onAuthChange(user => {
+// Console greeting
+ZeroX.onAuthChange(user => {
     if (user) {
-        console.log("%cZTA → Logged in:", "color:#9acd32;font-weight:bold;", user.displayName || user.email);
+        console.log("%cZeroX → Active Pilot:", "color:#9acd32;font-size:16px;font-weight:bold;", user.displayName || user.email);
     } else {
-        console.log("%cZTA → Guest mode", "color:#666;font-style:italic;");
+        console.log("%cZeroX → Standing by", "color:#333;font-style:italic;");
     }
 });
