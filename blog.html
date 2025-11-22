@@ -12,7 +12,7 @@ body{font-family:'Exo 2',sans-serif;background:#000;color:#fff;overflow-x:hidden
 canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.6;pointer-events:none;}
 a{text-decoration:none;color:inherit;}
 
-/* Premium Navbar – Auto changes after login */
+/* Premium Navbar */
 .navbar{
     position:fixed;top:0;width:100%;padding:22px 6%;display:flex;
     justify-content:space-between;align-items:center;z-index:9999;
@@ -40,7 +40,7 @@ a{text-decoration:none;color:inherit;}
 }
 .nav-links a.signup:hover{transform:scale(1.1);}
 
-/* Hero */
+/* Hero – Text fits perfectly */
 .hero{
     height:90vh;display:flex;align-items:center;justify-content:center;position:relative;
     background:url('assets/blog-hero.jpg') center/cover no-repeat fixed;
@@ -48,10 +48,10 @@ a{text-decoration:none;color:inherit;}
 .hero::before{content:"";position:absolute;inset:0;
               background:linear-gradient(135deg,rgba(0,0,40,0.8),rgba(0,0,0,0.95));}
 .hero h1{
-    font-family:'Orbitron',sans-serif;font-size:clamp(80px,16vw,160px);
+    font-family:'Orbitron',sans-serif;font-size:clamp(48px,10vw,110px);
     background:linear-gradient(90deg,#9acd32,#c6ff7a);-webkit-background-clip:text;
     -webkit-text-fill-color:transparent;text-shadow:0 0 100px #9acd32;
-    animation:levitate 8s ease-in-out infinite;
+    animation:levitate 8s ease-in-out infinite;text-align:center;line-height:1.2;
 }
 
 /* Blog Grid */
@@ -84,11 +84,8 @@ a{text-decoration:none;color:inherit;}
 }
 .read-more:hover{background:#c6ff7a;transform:scale(1.15);}
 
-/* Footer */
 footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
        border-top:2px solid rgba(154,205,50,0.2);}
-
-/* Animations */
 @keyframes levitate{0%,100%{transform:translateY(0);}50%{transform:translateY(-50px);}}
 </style>
 </head>
@@ -96,7 +93,7 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
 
 <canvas id="stars"></canvas>
 
-<!-- Navbar – Sign Up disappears after login -->
+<!-- Navbar – Members + Profile added -->
 <div class="navbar">
     <div class="logo">ZTA</div>
     <div class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('active')">
@@ -108,6 +105,7 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
         <a href="gallery.html">Gallery</a>
         <a href="blog.html">Blog</a>
         <a href="gears.html">Gears</a>
+        <a href="members.html">Members</a>
         <a href="login.html" id="authButton" class="signup">Sign Up</a>
     </div>
 </div>
@@ -117,25 +115,25 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
     <h1>COSMIC CHRONICLES</h1>
 </div>
 
-<!-- Blog Posts -->
+<!-- 5 REAL BLOG POSTS -->
 <div class="blog-container">
     <div class="blog-card">
-        <img src="assets/blog1.jpg" alt="Orion Nebula">
+        <img src="assets/blog1.jpg" alt="Orion">
         <div class="blog-content">
             <h3 class="blog-title">40 Hours on Orion from a City Rooftop</h3>
             <div class="blog-meta">March 15, 2025 • 14 min read</div>
             <p class="blog-excerpt">How I turned a light-polluted balcony into a deep-space observatory using custom filters and extreme processing.</p>
-            <a href="blog-post1.html" class="read-more">Read Story →</a>
+            <a href="blog-post1.html" class="read-more">Read Story</a>
         </div>
     </div>
 
     <div class="blog-card">
-        <img src="assets/blog2.jpg" alt="Custom Mount">
+        <img src="assets/blog2.jpg" alt="Mount">
         <div class="blog-content">
             <h3 class="blog-title">Building a $700 Zero-Backlash Mount</h3>
             <div class="blog-meta">February 28, 2025 • 22 min read</div>
             <p class="blog-excerpt">Full CAD files, CNC guide, and real-world performance that beats $4000 commercial mounts.</p>
-            <a href="blog-post2.html" class="read-more">Dive Deep →</a>
+            <a href="blog-post2.html" class="read-more">Dive Deep</a>
         </div>
     </div>
 
@@ -145,20 +143,39 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
             <h3 class="blog-title">Live Capture: Comet C/2024 S1 Disintegration</h3>
             <div class="blog-meta">January 8, 2025 • 11 min read</div>
             <p class="blog-excerpt">Real-time tracking as a comet met its end — captured from downtown under Bortle 9 skies.</p>
-            <a href="blog-post3.html" class="read-more">Witness It →</a>
+            <a href="blog-post3.html" class="read-more">Witness It</a>
+        </div>
+    </div>
+
+    <div class="blog-card">
+        <img src="assets/blog4.jpg" alt="Andromeda">
+        <div class="blog-content">
+            <h3 class="blog-title">Andromeda Galaxy: 100 Hours of Integration</h3>
+            <div class="blog-meta">December 20, 2024 • 18 min read</div>
+            <p class="blog-excerpt">The most detailed amateur image of M31 ever taken from a city — full processing workflow included.</p>
+            <a href="blog-post4.html" class="read-more">Explore</a>
+        </div>
+    </div>
+
+    <div class="blog-card">
+        <img src="assets/blog5.jpg" alt="Gear">
+        <div class="blog-content">
+            <h3 class="blog-title">My Complete 2025 Imaging Rig Under $3000</h3>
+            <div class="blog-meta">November 30, 2024 • 16 min read</div>
+            <p class="blog-excerpt">Every single piece of gear I use — from telescope to camera to software — with links and prices.</p>
+            <a href="blog-post5.html" class="read-more">View Rig</a>
         </div>
     </div>
 </div>
 
 <footer>© 2025 ZTA — Written in Starlight, Powered by Passion</footer>
 
-<!-- Firebase + Auth -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="firebase.js"></script>
 
 <script>
-// AUTO CHANGE "Sign Up" → "Profile" AFTER LOGIN
+// AUTO CHANGE "Sign Up" → "Profile"
 ZeroX.onAuthChange(user => {
     const btn = document.getElementById("authButton");
     if (user) {
@@ -171,25 +188,30 @@ ZeroX.onAuthChange(user => {
     }
 });
 
-// Premium Starfield
-const canvas=document.getElementById('stars');
-const ctx=canvas.getContext('2d');
-canvas.width=innerWidth;canvas.height=innerHeight;
-const stars=[];
-for(let i=0;i<700;i++){
-    stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.8+0.2});
+// Fixed smooth starfield
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let w = canvas.width = innerWidth;
+let h = canvas.height = innerHeight;
+const stars = [];
+for(let i = 0; i < 700; i++){
+    stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2,s:Math.random()*0.8+0.2});
 }
 function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="#9acd32";
-    stars.forEach(s=>{
-        ctx.globalAlpha=s.s;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
-        s.y+=0.8;if(s.y>canvas.height)s.y=0;
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = "#9acd32";
+    stars.forEach(s => {
+        ctx.globalAlpha = s.s;
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fill();
+        s.y += 0.8;
+        if(s.y > h) s.y = 0;
     });
     requestAnimationFrame(animate);
 }
 animate();
-window.addEventListener('resize',()=>{canvas.width=innerWidth;canvas.height=innerHeight;});
+window.addEventListener('resize',()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;});
 </script>
 </body>
 </html>
