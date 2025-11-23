@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZTA • Secure Admin Access</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Orbitron Font -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+/* -------------------------------------------
+      GLOBAL THEME
+--------------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    font-family: Orbitron, sans-serif;
+    overflow: hidden;
+    color: #00f7ff;
+}
+
+/* -------------------------------------------
+      BACKGROUND LAYERS (GALAXY, STARS, FOG)
+--------------------------------------------*/
+#galaxy {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 70%, #001a33, #000);
+    z-index: -3;
+}
+
+/* moving stars */
+.star-field {
+    position: fixed;
+    width: 200vw;
+    height: 200vh;
+    background: transparent;
+    animation: starfield 90s linear infinite;
+    z-index: -2;
+}
+
+.star-field:before,
+.star-field:after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow:
+        200px 300px #fff,
+        900px 1200px #fff,
+        1500px 700px #fff,
+        500px 1800px #fff,
+        1300px 400px #fff,
+        1800px 1500px #fff,
+        700px 200px #fff,
+        1900px 900px #fff;
+}
+
+@keyframes starfield {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+}
+
+/* Nebula fog */
+.fog {
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background: url('https://i.ibb.co/MBLfPbH/nebula-fog.png');
+    opacity: 0.25;
+    animation: fogMove 120s linear infinite;
+    z-index: -1;
+}
+
+@keyframes fogMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(-20%); }
+}
+
+/* -------------------------------------------
+         HOLOGRAM LOGIN PANEL
+--------------------------------------------*/
+.login-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 410px;
+    padding: 35px;
+    background: rgba(0, 15, 25, 0.65);
+    border: 2px solid #00faff;
+    border-radius: 20px;
+    box-shadow:
+        0 0 20px #00faff,
+        inset 0 0 20px #00c8ff;
+    text-align: center;
+    backdrop-filter: blur(6px);
+}
+
+/* Glowing hologram top strip */
+.holo-strip {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #00eaff, #0088aa, #00eaff);
+    animation: scan 3s ease-in-out infinite;
+}
+@keyframes scan {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+h1 {
+    margin-top: 15px;
+    font-size: 26px;
+    color: #00ffe5;
+    text-shadow: 0 0 10px #00eaff;
+}
+
+.subtitle {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #66ffff;
+    opacity: 0.8;
+}
+
+/* Input */
+input {
+    width: 95%;
+    margin-top: 15px;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.65);
+    border: 2px solid #00eaff;
+    border-radius: 10px;
+    outline: none;
+    color: #00faff;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 2px;
+    box-shadow: 0 0 8px #00eaff;
+}
+
+input::placeholder {
+    color: #66e0ff;
+}
+
+/* Button */
+button {
+    width: 95%;
+    padding: 14px;
+    margin-top: 20px;
+    background: #00faff;
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 17px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+button:hover {
+    transform: scale(1.06);
+    background: #33ffff;
+}
+
+/* Error message */
+#errorMsg {
+    margin-top: 12px;
+    color: red;
+    font-size: 14px;
+    display: none;
+}
+
+/* Footer tag */
+.footer {
+    position: fixed;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #00cfff;
+    opacity: 0.5;
+}
+</style>
+</head>
+<body>
+
+<div id="galaxy"></div>
+<div class="star-field"></div>
+<div class="fog"></div>
+
+<div class="login-wrapper">
+    <div class="holo-strip"></div>
+    <h1>ZTA SECURE ACCESS</h1>
+    <p class="subtitle">Admin Authentication Required</p>
+
+    <input id="codeInput" type="password" placeholder="ENTER ACCESS CODE">
+    <button onclick="verify()">UNLOCK</button>
+
+    <div id="errorMsg">❌ Incorrect Code</div>
+</div>
+
+<div class="footer">
+    ZeroTimeAstrophotography • Classified Access Gate
+</div>
+
+<script>
+/* SECRET LOGIN CODE */
+const SECRET = "89OQBSADETWNA";
+
+/* 20 RANK CODES — hidden, internal */
+const RANK_CODES = [
+    "TXHAIVEMELA01",
+    "EUJENEIDI99",
+    "77WHBSOSH42",
+    "JX9PLAMOR55",
+    "ZTA-PH-CODE01",
+    "ZTA-PH-CODE02",
+    "ZTA-PH-CODE03",
+    "ZTA-PH-CODE04",
+    "ZTA-PH-CODE05",
+    "ZTA-PH-CODE06",
+    "ZTA-PH-CODE07",
+    "ZTA-PH-CODE08",
+    "ZTA-PH-CODE09",
+    "ZTA-PH-CODE10",
+    "ZTA-PH-CODE11",
+    "ZTA-PH-CODE12",
+    "ZTA-PH-CODE13",
+    "ZTA-PH-CODE14",
+    "ZTA-PH-CODE15",
+    "ZTA-PH-CODE16"
+];
+
+/* MAIN LOGIN FUNCTION */
+function verify() {
+    const input = document.getElementById("codeInput").value;
+
+    if (input === SECRET) {
+        window.location.href = "admin.html";
+    } else {
+        document.getElementById("errorMsg").style.display = "block";
+    }
+}
+</script>
+
+</body>
+</html>
