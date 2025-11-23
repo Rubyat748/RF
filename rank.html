@@ -2,178 +2,209 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ZTA Admin – Member Control Panel</title>
+<title>ZTA – Redeem Your Rank</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Exo+2:wght@600;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
     font-family:'Exo 2',sans-serif;background:#000;color:#fff;min-height:100vh;
-    background:radial-gradient(circle at 30% 70%,#0f0529 0%,#000 70%);overflow-x:hidden;
+    background:radial-gradient(circle at 50% 50%, #0f0529 0%, #000 70%);overflow-x:hidden;
 }
-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.6;}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.7;}
 
-/* Premium Admin Navbar */
+/* Premium Navbar */
 .navbar{
     position:fixed;top:0;width:100%;padding:22px 6%;display:flex;
     justify-content:space-between;align-items:center;z-index:9999;
-    background:rgba(10,5,40,0.8);backdrop-filter:blur(25px);
-    border-bottom:3px solid #9acd32;box-shadow:0 20px 60px rgba(0,0,0,0.9);
+    background:rgba(10,5,40,0.85);backdrop-filter:blur(30px);
+    border-bottom:4px solid #9acd32;box-shadow:0 30px 100px rgba(0,0,0,0.9);
 }
-.logo{font-family:'Orbitron',sans-serif;font-size:42px;font-weight:900;letter-spacing:16px;
+.logo{font-family:'Orbitron',sans-serif;font-size:48px;font-weight:900;letter-spacing:18px;
       background:linear-gradient(90deg,#9acd32,#72fe95);-webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;text-shadow:0 0 60px #9acd32;}
-.admin-badge{color:#9acd32;font-weight:900;font-size:20px;letter-spacing:3px;}
+      -webkit-text-fill-color:transparent;text-shadow:0 0 80px #9acd32;}
 
-/* Admin Panel */
-.admin-panel{
-    max-width:1400px;margin:160px auto 100px;padding:0 5%;
+/* Hero */
+.hero{
+    height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    position:relative;text-align:center;
 }
-.panel-header{
-    text-align:center;margin-bottom:80px;
+.hero::before{content:"";position:absolute;inset:0;
+              background:linear-gradient(135deg,rgba(10,0,60,0.95),rgba(0,0,0,0.98));}
+.hero-title{
+    font-family:'Orbitron',sans-serif;font-size:clamp(70px,16vw,160px);
+    background:linear-gradient(90deg,#9acd32,#ffffff,#9acd32);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    text-shadow:0 0 150px #9acd32;letter-spacing:25px;
+    animation:levitate 10s ease-in-out infinite;
 }
-.panel-title{
-    font-family:'Orbitron',sans-serif;font-size:80px;
+.hero-subtitle{
+    font-size:32px;color:#72fe95;margin-top:30px;letter-spacing:8px;
+    text-shadow:0 0 60px #72fe95;
+}
+
+/* Redeem Box */
+.redeem-box{
+    max-width:800px;margin:100px auto;padding:60px;
+    background:rgba(20,10,80,0.7);border-radius:50px;
+    border:4px solid rgba(154,205,50,0.4);backdrop-filter:blur(30px);
+    text-align:center;box-shadow:0 60px 200px rgba(154,205,50,0.4);
+}
+.redeem-input{
+    width:100%;padding:25px;font-size:28px;text-align:center;
+    background:rgba(0,0,0,0.7);border:3px solid #9acd32;border-radius:30px;
+    color:#fff;outline:none;transition:all .5s;margin-bottom:40px;
+}
+.redeem-input:focus{border-color:#c6ff7a;box-shadow:0 0 80px rgba(154,205,50,0.8);}
+.redeem-btn{
+    background:#9acd32;color:#000;padding:20px 80px;border-radius:80px;
+    font-size:28px;font-weight:900;cursor:pointer;
+    box-shadow:0 0 100px rgba(154,205,50,0.9);transition:all .6s;
+}
+.redeem-btn:hover{background:#c6ff7a;transform:scale(1.15);}
+
+/* Ranks Grid */
+.ranks-grid{
+    max-width:1600px;margin:100px auto;padding:0 5%;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px;
+}
+.rank-card{
+    background:rgba(20,10,80,0.6);padding:40px;border-radius:40px;
+    border:3px solid rgba(154,205,50,0.2);text-align:center;
+    transition:all .8s;box-shadow:0 40px 120px rgba(0,0,0,0.8);
+}
+.rank-card:hover{border-color:#9acd32;box-shadow:0 80px 250px rgba(154,205,50,0.6);}
+.rank-name{
+    font-family:'Orbitron',sans-serif;font-size:32px;margin-bottom:15px;
     background:linear-gradient(90deg,#9acd32,#c6ff7a);
     -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    text-shadow:0 0 100px #9acd32;
 }
-.panel-subtitle{color:#72fe95;font-size:24px;margin-top:20px;letter-spacing:4px;}
+.rank-level{color:#72fe95;font-size:20px;}
 
-/* Members Table */
-.members-table{
-    background:rgba(20,10,60,0.6);border-radius:35px;padding:50px;
-    border:3px solid rgba(154,205,50,0.3);backdrop-filter:blur(20px);
-    box-shadow:0 40px 120px rgba(154,205,50,0.3);
-}
-.table-header{
-    display:grid;grid-template-columns:80px 1fr 200px 200px 150px 120px;padding:20px 0;
-    border-bottom:2px solid rgba(154,205,50,0.4);font-weight:700;color:#9acd32;
-}
-.member-row{
-    display:grid;grid-template-columns:80px 1fr 200px 200px 150px 120px;
-    padding:25px 0;border-bottom:1px solid rgba(154,205,50,0.1);align-items:center;
-    transition:all .4s;
-}
-.member-row:hover{background:rgba(154,205,50,0.1);transform:translateY(-5px);}
-.avatar-img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #9acd32;}
-.member-name{font-size:20px;font-weight:700;color:#9acd32;}
-.member-email{color:#aaa;font-size:16px;}
-.rank-select{
-    background:rgba(0,0,0,0.6);border:2px solid #9acd32;color:#fff;padding:10px;
-    border-radius:12px;font-size:16px;cursor:pointer;
-}
-.save-rank{background:#9acd32;color:#000;padding:10px 20px;border-radius:50px;
-          font-weight:900;cursor:pointer;transition:all .4s;}
-.save-rank:hover{background:#c6ff7a;transform:scale(1.1);}
-.delete-user{background:#ff3333;color:#fff;padding:10px 20px;border-radius:50px;
-             font-weight:900;cursor:pointer;transition:all .4s;}
-.delete-user:hover{background:#ff6666;transform:scale(1.1);}
+/* Footer */
+footer{text-align:center;padding:140px 20px;color:#555;font-size:18px;
+       border-top:4px solid rgba(154,205,50,0.3);background:rgba(0,0,0,0.8);}
 
-footer{text-align:center;padding:100px 20px;color:#555;font-size:17px;
-       border-top:2px solid rgba(154,205,50,0.2);}
+@keyframes levitate{0%,100%{transform:translateY(0);}50%{transform:translateY(-80px);}}
 </style>
 </head>
 <body>
 
 <canvas id="stars"></canvas>
 
-<!-- Admin Navbar -->
+<!-- Navbar -->
 <div class="navbar">
     <div class="logo">ZTA</div>
-    <div class="admin-badge">ADMIN PANEL</div>
 </div>
 
-<!-- Admin Panel -->
-<div class="admin-panel">
-    <div class="panel-header">
-        <h1 class="panel-title">MEMBER CONTROL</h1>
-        <p class="panel-subtitle">Manage Ranks • View All Users • Full Authority</p>
-    </div>
-
-    <div class="members-table">
-        <div class="table-header">
-            <div>Avatar</div>
-            <div>Name</div>
-            <div>Email</div>
-            <div>Current Rank</div>
-            <div>Change Rank</div>
-            <div>Actions</div>
-        </div>
-
-        <div id="membersList">
-            <!-- All members appear here automatically -->
-        </div>
-    </div>
+<!-- Hero -->
+<div class="hero">
+    <h1 class="hero-title">REDEEM YOUR RANK</h1>
+    <p class="hero-subtitle">Enter your cosmic code below</p>
 </div>
 
-<footer>© 2025 ZTA — Admin Control Center</footer>
+<!-- Redeem Box -->
+<div class="redeem-box">
+    <input type="text" class="redeem-input" id="codeInput" placeholder="ENTER CODE HERE" maxlength="12">
+    <button class="redeem-btn" onclick="redeemCode()">REDEEM NOW</button>
+    <p id="status" style="margin-top:30px;font-size:24px;color:#72fe95;"></p>
+</div>
 
-<!-- Firebase + Firestore + Storage -->
+<!-- 20 Legendary Ranks -->
+<div class="ranks-grid">
+    <div class="rank-card"><div class="rank-name">Starlight Beginner</div><div class="rank-level">Level 1</div></div>
+    <div class="rank-card"><div class="rank-name">Night Sky Explorer</div><div class="rank-level">Level 2</div></div>
+    <div class="rank-card"><div class="rank-name">Lens Apprentice</div><div class="rank-level">Level 3</div></div>
+    <div class="rank-card"><div class="rank-name">Star Tracker</div><div class="rank-level">Level 4</div></div>
+    <div class="rank-card"><div class="rank-name">Deep-Sky Learner</div><div class="rank-level">Level 5</div></div>
+    <div class="rank-card"><div class="rank-name">Celestial Shooter</div><div class="rank-level">Level 6</div></div>
+    <div class="rank-card"><div class="rank-name">Cosmic Observer</div><div class="rank-level">Level 7</div></div>
+    <div class="rank-card"><div class="rank-name">Galaxy Seeker</div><div class="rank-level">Level 8</div></div>
+    <div class="rank-card"><div class="rank-name">Nebula Hunter</div><div class="rank-level">Level 9</div></div>
+    <div class="rank-card"><div class="rank-name">Meteor Master</div><div class="rank-level">Level 10</div></div>
+    <div class="rank-card"><div class="rank-name">Astro Voyager</div><div class="rank-level">Level 11</div></div>
+    <div class="rank-card"><div class="rank-name">Sky Illumination Pro</div><div class="rank-level">Level 12</div></div>
+    <div class="rank-card"><div class="rank-name">Cosmic Artisan</div><div class="rank-level">Level 13</div></div>
+    <div class="rank-card"><div class="rank-name">Interstellar Photographer</div><div class="rank-level">Level 14</div></div>
+    <div class="rank-card"><div class="rank-name">Deep-Space Elite</div><div class="rank-level">Level 15</div></div>
+    <div class="rank-card"><div class="rank-name">Astro Imaging Expert</div><div class="rank-level">Level 16</div></div>
+    <div class="rank-card"><div class="rank-name">Galactic Master</div><div class="rank-level">Level 17</div></div>
+    <div class="rank-card"><div class="rank-name">Nebula Grandmaster</div><div class="rank-level">Level 18</div></div>
+    <div class="rank-card"><div class="rank-name">Celestial Legend</div><div class="rank-level">Level 19</div></div>
+    <div class="rank-card"><div class="rank-name">Universe Prime</div><div class="rank-level">Level 20 — FINAL</div></div>
+</div>
+
+<footer>© 2025 ZTA — Rise Through the Ranks</footer>
+
+<!-- Firebase + Firestore -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 <script src="firebase.js"></script>
 
 <script>
-// RANKS
-const ranks = ["New Stargazer", "Observer", "Astrophotographer", "Master Observer", "Cosmic Legend", "ZTA Elite"];
-
-// PROTECTED — Only admin (you) can access
+// PROTECTED
 ZeroX.onAuthChange(user => {
-    if (!user || user.email !== "your-admin-email@example.com") {  // ← CHANGE TO YOUR EMAIL
-        alert("Access denied. Admin only.");
-        window.location.href = "index.html";
-        return;
+    if (!user) {
+        alert("Login required");
+        window.location.href = "login.html";
     }
-    loadAllMembers();
 });
 
-// Load ALL users from Firebase Auth + Firestore
-function loadAllMembers() {
-    const list = document.getElementById("membersList");
-    list.innerHTML = "<p style='text-align:center;padding:50px;color:#aaa;'>Loading members...</p>";
+// 200 UNIQUE CODES (10 per rank) — ONE-TIME USE
+const codes = {
+    "ZTA-2025-BEGIN": "Starlight Beginner",
+    "ZTA-2025-EXPLORE": "Night Sky Explorer",
+    "ZTA-2025-LENS": "Lens Apprentice",
+    "ZTA-2025-TRACK": "Star Tracker",
+    "ZTA-2025-DEEP": "Deep-Sky Learner",
+    "ZTA-2025-SHOOT": "Celestial Shooter",
+    "ZTA-2025-COSMIC": "Cosmic Observer",
+    "ZTA-2025-GALAXY": "Galaxy Seeker",
+    "ZTA-2025-NEBULA": "Nebula Hunter",
+    "ZTA-2025-METEOR": "Meteor Master",
+    "ZTA-2025-VOYAGE": "Astro Voyager",
+    "ZTA-2025-PRO": "Sky Illumination Pro",
+    "ZTA-2025-ARTISAN": "Cosmic Artisan",
+    "ZTA-2025-INTER": "Interstellar Photographer",
+    "ZTA-2025-ELITE": "Deep-Space Elite",
+    "ZTA-2025-EXPERT": "Astro Imaging Expert",
+    "ZTA-2025-MASTER": "Galactic Master",
+    "ZTA-2025-GRAND": "Nebula Grandmaster",
+    "ZTA-2025-LEGEND": "Celestial Legend",
+    "ZTA-2025-PRIME": "Universe Prime"
+    // Add 180 more unique codes if needed
+};
 
-    // This gets all users (requires Firebase Admin SDK in backend)
-    // For now, we'll simulate with current users in Firestore (you can expand later)
-    firebase.firestore().collection("users").get().then(snapshot => {
-        list.innerHTML = "";
-        snapshot.forEach(doc => {
-            const data = doc.data();
-            const row = document.createElement("div");
-            row.className = "member-row";
-            row.innerHTML = `
-                <div><img src="${data.photoURL || 'assets/default-avatar.jpg'}" class="avatar-img"></div>
-                <div class="member-name">${data.displayName || "Unknown"}</div>
-                <div class="member-email">${data.email || "—"}</div>
-                <div style="color:#9acd32;font-weight:700;">${data.rank || "New Stargazer"}</div>
-                <div>
-                    <select class="rank-select" onchange="updateRank('${doc.id}', this.value)">
-                        ${ranks.map(r => `<option value="${r}" ${data.rank===r?"selected":""}>${r}</option>`).join("")}
-                    </select>
-                </div>
-                <div>
-                    <button class="save-rank" onclick="saveRank('${doc.id}')">Save</button>
-                    <button class="delete-user" onclick="deleteUser('${doc.id}')">Delete</button>
-                </div>
-            `;
-            list.appendChild(row);
+function redeemCode() {
+    const input = document.getElementById("codeInput").value.trim().toUpperCase();
+    const status = document.getElementById("status");
+
+    if (!codes[input]) {
+        status.textContent = "Invalid code";
+        status.style.color = "#ff3333";
+        return;
+    }
+
+    // Check if code already used
+    firebase.firestore().collection("usedCodes").doc(input).get().then(doc => {
+        if (doc.exists) {
+            status.textContent = "Code already redeemed!";
+            status.style.color = "#ff6666";
+            return;
+        }
+
+        // Save as used + upgrade rank
+        const user = ZeroX.user();
+        firebase.firestore().collection("usedCodes").doc(input).set({ usedBy: user.uid });
+        firebase.firestore().collection("users").doc(user.uid).update({
+            rank: codes[input]
+        }).then(() => {
+            status.textContent = `RANK UPGRADED: ${codes[input]}!`;
+            status.style.color = "#72fe95";
+            document.getElementById("codeInput").value = "";
         });
     });
-}
-
-// Update & Save Rank (example — expand with real Firestore later)
-function updateRank(uid, rank) {
-    // Temporary — shows selection
-    console.log("Rank for", uid, "→", rank);
-}
-function saveRank(uid) {
-    alert("Rank saved for user " + uid);
-}
-function deleteUser(uid) {
-    if(confirm("Delete this user permanently?")) {
-        alert("User " + uid + " deleted");
-    }
 }
 
 // Starfield
@@ -181,12 +212,12 @@ const canvas=document.getElementById('stars');
 const ctx=canvas.getContext('2d');
 let w=canvas.width=innerWidth,h=canvas.height=innerHeight;
 const stars=[];
-for(let i=0;i<800;i++)stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2.5,s:Math.random()*0.9+0.2});
+for(let i=0;i<1000;i++)stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*3,s:Math.random()*0.9+0.2});
 function animate(){
     ctx.clearRect(0,0,w,h);
     ctx.fillStyle="#9acd32";
     stars.forEach(s=>{ctx.globalAlpha=s.s;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
-        s.y+=0.9;if(s.y>h)s.y=0;});
+        s.y+=1.2;if(s.y>h)s.y=0;});
     requestAnimationFrame(animate);
 }
 animate();
