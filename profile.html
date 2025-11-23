@@ -113,7 +113,7 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
 
 <canvas id="stars"></canvas>
 
-<!-- Navbar – Fixed Links -->
+<!-- Navbar -->
 <div class="navbar">
     <div class="logo">ZTA</div>
     <div class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('active')">
@@ -126,6 +126,7 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
         <a href="blog.html">Blog</a>
         <a href="gears.html">Gears</a>
         <a href="members.html">Members</a>
+        <a href="rank.html">Redeem Rank</a>
         <a href="login.html" id="authButton" class="signup">Sign Up</a>
     </div>
 </div>
@@ -151,28 +152,30 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
         <div class="stats-grid">
             <div class="stat-box"><div class="stat-number" id="totalCaptures">0</div><div class="stat-label">Images Uploaded</div></div>
             <div class="stat-box"><div class="stat-number" id="totalLikes">0</div><div class="stat-label">Total Likes</div></div>
-            <div class="stat-box"><div class="stat-number" id="rankLevel">Explorer</div><div class="stat-label">Current Rank</div></div>
+            <div class="stat-box"><div class="stat-number" id="rankLevel">Loading...</div><div class="stat-label">Current Rank</div></div>
             <div class="stat-box"><div class="stat-number" id="daysActive">0</div><div class="stat-label">Days Active</div></div>
         </div>
 
         <div class="actions">
             <a href="gallery.html" class="btn btn-primary">My Gallery</a>
             <a href="members.html" class="btn btn-primary">Members Gallery</a>
-            <button class="btn btn-logout" onclick="ZeroX.logout()">Logout</button>
+            <a href="rank.html" class="btn btn-primary">Redeem Rank</a>
+            <a href="logout.html" class="btn btn-logout">Logout</a>
         </div>
     </div>
 </div>
 
 <footer>© 2025 ZTA — Your Personal Corner of the Universe</footer>
 
-<!-- Firebase + Storage -->
+<!-- Firebase + Storage + Firestore -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="firebase.js"></script>
 
 <script>
-// FULLY PROTECTED + ALL FIXES
+// FULLY PROTECTED + LIVE RANK FROM rank.html / Firestore
 ZeroX.onAuthChange(user => {
     if (!user) {
         alert("Please log in to view your profile");
@@ -181,48 +184,49 @@ ZeroX.onAuthChange(user => {
     }
 
     // Update navbar
-    const btn = document.getElementById("authButton");
-    btn.textContent = "Profile";
-    btn.href = "profile.html";
+    document.getElementById("authButton").textContent = "Profile";
+    document.getElementById("authButton").href = "profile.html";
 
-    // Fill user data
+    // Basic info
     document.getElementById("userName").textContent = user.displayName || "Cosmonaut";
     document.getElementById("userEmail").textContent = user.email;
     document.getElementById("userAvatar").src = user.photoURL || "assets/default-avatar.jpg";
 
     const created = new Date(user.metadata.creationTime || Date.now());
     document.getElementById("memberSince").textContent = created.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-
-    // Stats
-    document.getElementById("totalCaptures").textContent = "23";
-    document.getElementById("totalLikes").textContent = "1.4K";
-    document.getElementById("rankLevel").textContent = "Master Observer";
     document.getElementById("daysActive").textContent = Math.floor((Date.now() - created.getTime()) / 86400000);
+
+    // LIVE RANK FROM FIRESTORE (set by rank.html)
+    const userDoc = firebase.firestore().collection("users").doc(user.uid);
+    userDoc.onSnapshot(doc => {
+        if (doc.exists) {
+            const data = doc.data();
+            const rank = data.rank || "Starlight Beginner";
+            document.getElementById("rankLevel").textContent = rank;
+            document.getElementById("totalCaptures").textContent = data.captures || 0;
+            document.getElementById("totalLikes").textContent = data.likes || 0;
+        } else {
+            document.getElementById("rankLevel").textContent = "Starlight Beginner";
+        }
+    });
 });
 
-// AVATAR UPLOAD — NOW WORKS 100%
+// AVATAR UPLOAD — 100% WORKING
 document.getElementById("avatarUpload").addEventListener("change", e => {
     const file = e.target.files[0];
     if (!file) return;
 
     const user = ZeroX.user();
-    if (!user) return alert("Not logged in");
-
     const storageRef = firebase.storage().ref("avatars/" + user.uid + ".jpg");
 
-    const uploadTask = storageRef.put(file);
-    uploadTask.on('state_changed',
-        () => {}, 
-        err => alert("Upload failed: " + err.message),
-        () => {
-            uploadTask.snapshot.ref.getDownloadURL().then(url => {
-                user.updateProfile({ photoURL: url }).then(() => {
-                    document.getElementById("userAvatar").src = url + "?" + Date.now();
-                    alert("Avatar updated successfully!");
-                });
+    storageRef.put(file).then(() => {
+        storageRef.getDownloadURL().then(url => {
+            user.updateProfile({ photoURL: url }).then(() => {
+                document.getElementById("userAvatar").src = url + "?" + Date.now();
+                alert("Avatar updated!");
             });
-        }
-    );
+        });
+    }).catch(err => alert("Upload failed: " + err.message));
 });
 
 // Starfield
