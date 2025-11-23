@@ -2,20 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ZTA – My Cosmic Profile</title>
+<title>ZTA Members – Upload Your Capture</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@300;600;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
-    font-family:'Exo 2',sans-serif;background:#000;color:#fff;min-height:100vh;
-    background:radial-gradient(circle at 10% 90%,#0f0529 0%,#000 70%);
-    overflow-x:hidden;position:relative;
-}
-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.65;}
+body{font-family:'Exo 2',sans-serif;background:#000;color:#fff;overflow-x:hidden;
+     background:radial-gradient(circle at 30% 70%,#0f0529 0%,#000 70%);}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.6;pointer-events:none;}
 a{text-decoration:none;color:inherit;}
 
-/* Navbar – Same as all pages */
+/* Premium Navbar */
 .navbar{
     position:fixed;top:0;width:100%;padding:22px 6%;display:flex;
     justify-content:space-between;align-items:center;z-index:9999;
@@ -42,74 +39,50 @@ a{text-decoration:none;color:inherit;}
     border-radius:60px;font-weight:900;box-shadow:0 0 60px rgba(154,205,50,0.7);
 }
 
-/* Profile Dashboard */
-.profile-dashboard{
-    max-width:1100px;margin:0 auto;padding:160px 5% 100px;display:grid;
-    grid-template-columns:1fr 2fr;gap:80px;align-items:start;
+/* Hero */
+.hero{
+    height:80vh;display:flex;align-items:center;justify-content:center;position:relative;
+    background:url('assets/members-bg.jpg') center/cover no-repeat fixed;
 }
-.profile-sidebar{
-    background:rgba(20,10,60,0.7);padding:50px;border-radius:35px;
-    border:3px solid rgba(154,205,50,0.4);backdrop-filter:blur(25px);
-    text-align:center;box-shadow:0 40px 120px rgba(154,205,50,0.4);
+.hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.85);}
+.hero h1{
+    font-family:'Orbitron',sans-serif;font-size:clamp(50px,12vw,120px);
+    background:linear-gradient(90deg,#9acd32,#c6ff7a);-webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;text-shadow:0 0 100px #9acd32;
 }
-.avatar-container{
-    position:relative;display:inline-block;margin-bottom:30px;
-}
-#userAvatar{
-    width:240px;height:240px;border-radius:50%;border:10px solid #9acd32;
-    object-fit:cover;box-shadow:0 0 140px #9acd32;
-}
-.change-avatar{
-    position:absolute;bottom:10px;right:10px;background:#9acd32;color:#000;
-    width:50px;height:50px;border-radius:50%;display:flex;align-items:center;
-    justify-content:center;font-size:24px;cursor:pointer;
-    box-shadow:0 0 40px #9acd32;
-}
-#userName{font-family:'Orbitron',sans-serif;font-size:48px;margin:20px 0;
-          background:linear-gradient(90deg,#9acd32,#c6ff7a);
-          -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-#userEmail{color:#72fe95;font-size:22px;letter-spacing:2px;margin-bottom:30px;}
-.member-since{color:#aaa;font-size:18px;}
 
-/* Stats & Activity */
-.activity{
-    background:rgba(20,10,60,0.7);padding:50px;border-radius:35px;
-    border:3px solid rgba(154,205,50,0.3);backdrop-filter:blur(25px);
+/* Upload Area */
+.upload-section{
+    max-width:900px;margin:100px auto;padding:0 5%;text-align:center;
 }
-.stats-grid{
-    display:grid;grid-template-columns:repeat(2,1fr);gap:40px;margin-bottom:60px;
+.upload-box{
+    background:rgba(20,10,60,0.7);padding:60px;border-radius:35px;
+    border:3px dashed rgba(154,205,50,0.4);transition:all .6s;
 }
-.stat-box{
-    background:rgba(154,205,50,0.1);padding:30px;border-radius:25px;
-    border:2px solid rgba(154,205,50,0.3);text-align:center;
+.upload-box:hover{border-color:#9acd32;box-shadow:0 0 80px rgba(154,205,50,0.5);}
+#fileInput{display:none;}
+.upload-btn{
+    background:#9acd32;color:#000;padding:18px 50px;border-radius:60px;
+    font-weight:900;font-size:20px;cursor:pointer;margin:30px 0;
+    box-shadow:0 0 60px rgba(154,205,50,0.8);transition:all .5s;
 }
-.stat-number{font-size:50px;font-weight:900;color:#9acd32;}
-.stat-label{color:#aaa;font-size:16px;letter-spacing:2px;}
+.upload-btn:hover{background:#c6ff7a;transform:scale(1.1);}
 
-/* Action Buttons */
-.actions{display:flex;gap:30px;flex-wrap:wrap;margin-top:40px;}
-.btn{
-    padding:18px 50px;border-radius:60px;font-weight:900;font-size:18px;
-    cursor:pointer;transition:all .5s;box-shadow:0 0 60px rgba(154,205,50,0.6);
+/* Members Gallery */
+.gallery-grid{
+    max-width:1400px;margin:80px auto;padding:0 5%;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;
 }
-.btn-primary{background:#9acd32;color:#000;}
-.btn-primary:hover{background:#c6ff7a;transform:scale(1.1);}
-.btn-logout{background:transparent;border:3px solid #9acd32;color:#9acd32;}
-.btn-logout:hover{background:#9acd32;color:#000;}
+.gallery-item{
+    border-radius:25px;overflow:hidden;border:3px solid rgba(154,205,50,0.2);
+    box-shadow:0 30px 80px rgba(0,0,0,0.7);transition:all .8s;
+}
+.gallery-item:hover{border-color:#9acd32;box-shadow:0 60px 150px rgba(154,205,50,0.6);}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:all .8s;}
+.gallery-item:hover img{transform:scale(1.15);filter:brightness(1.3);}
 
-/* Footer */
 footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
        border-top:2px solid rgba(154,205,50,0.2);}
-
-/* Mobile */
-@media (max-width:968px){
-    .hamburger{display:block;}
-    .nav-links{position:fixed;top:0;left:-100%;width:100%;height:100vh;
-               background:#000;padding-top:150px;flex-direction:column;gap:60px;
-               transition:left .6s;z-index:9998;}
-    .nav-links.active{left:0;}
-    .profile-dashboard{grid-template-columns:1fr;gap:60px;}
-}
 </style>
 </head>
 <body>
@@ -128,41 +101,37 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
         <a href="gallery.html">Gallery</a>
         <a href="blog.html">Blog</a>
         <a href="gears.html">Gears</a>
+        <a href="members.html">Members</a>
         <a href="login.html" id="authButton" class="signup">Sign Up</a>
     </div>
 </div>
 
-<!-- Profile Dashboard -->
-<div class="profile-dashboard">
-    <div class="profile-sidebar">
-        <div class="avatar-container">
-            <img src="" alt="Avatar" id="userAvatar">
-            <label for="avatarUpload" class="change-avatar">Camera</label>
-            <input type="file" id="avatarUpload" accept="image/*" style="display:none;">
-        </div>
-        <h1 id="userName">Loading...</h1>
-        <p id="userEmail">...</p>
-        <p class="member-since">Member since <span id="memberSince">—</span></p>
-    </div>
+<!-- Hero -->
+<div class="hero">
+    <h1>MEMBERS GALLERY</h1>
+</div>
 
-    <div class="activity">
-        <h2 style="font-size:40px;margin-bottom:50px;background:linear-gradient(90deg,#9acd32,#72fe95);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Your Cosmic Activity</h2>
-        
-        <div class="stats-grid">
-            <div class="stat-box"><div class="stat-number" id="totalCaptures">0</div><div class="stat-label">Images Uploaded</div></div>
-            <div class="stat-box"><div class="stat-number" id="totalLikes">0</div><div class="stat-label">Total Likes</div></div>
-            <div class="stat-box"><div class="stat-number" id="rankLevel">Explorer</div><div class="stat-label">Current Rank</div></div>
-            <div class="stat-box"><div class="stat-number" id="daysActive">0</div><div class="stat-label">Days Active</div></div>
-        </div>
-
-        <div class="actions">
-            <button class="btn btn-primary" onclick="alert('Gallery coming soon!')">My Gallery</button>
-            <button class="btn btn-logout" onclick="ZeroX.logout()">Logout</button>
-        </div>
+<!-- Upload Section -->
+<div class="upload-section">
+    <div class="upload-box">
+        <h2 style="font-size:36px;margin-bottom:20px;background:linear-gradient(90deg,#9acd32,#c6ff7a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            Share Your Cosmic Capture
+        </h2>
+        <p style="color:#aaa;font-size:18px;margin-bottom:30px;">
+            Upload your best astrophoto — become part of the ZTA legacy
+        </p>
+        <label for="fileInput" class="upload-btn">Choose Image</label>
+        <input type="file" id="fileInput" accept="image/*">
+        <p id="uploadStatus" style="margin-top:20px;color:#72fe95;font-size:16px;"></p>
     </div>
 </div>
 
-<footer>© 2025 ZTA — Your Personal Corner of the Universe</footer>
+<!-- Members Gallery -->
+<div class="gallery-grid" id="galleryGrid">
+    <!-- Photos will appear here automatically -->
+</div>
+
+<footer>© 2025 ZTA — Community Gallery</footer>
 
 <!-- Firebase + Storage -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -173,61 +142,62 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
 <script>
 // PROTECT PAGE
 ZeroX.onAuthChange(user => {
-    if (!user) { alert("Login required"); window.location.href = "login.html"; return; }
-
-    // Update navbar
+    if (!user) {
+        alert("Members-only area. Please log in.");
+        window.location.href = "login.html";
+        return;
+    }
     document.getElementById("authButton").textContent = "Profile";
     document.getElementById("authButton").href = "profile.html";
-
-    // Fill real user data
-    document.getElementById("userName").textContent = user.displayName || "Cosmonaut";
-    document.getElementById("userEmail").textContent = user.email;
-    document.getElementById("userAvatar").src = user.photoURL || "assets/default-avatar.jpg";
-
-    const created = new Date(user.metadata.creationTime);
-    document.getElementById("memberSince").textContent = created.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-
-    // Fake stats (replace with real Firestore later)
-    document.getElementById("totalCaptures").textContent = "23";
-    document.getElementById("totalLikes").textContent = "1.4K";
-    document.getElementById("rankLevel").textContent = "Master Observer";
-    document.getElementById("daysActive").textContent = Math.floor((Date.now() - created) / 86400000);
 });
 
-// Custom Avatar Upload
-document.getElementById("avatarUpload").addEventListener("change", (e) => {
+// UPLOAD PHOTO
+document.getElementById("fileInput").addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const user = ZeroX.user();
-    const storageRef = firebase.storage().ref("avatars/" + user.uid + ".jpg");
-    
+    const storageRef = firebase.storage().ref("members/" + user.uid + "_" + Date.now() + ".jpg");
+
+    document.getElementById("uploadStatus").textContent = "Uploading...";
+
     storageRef.put(file).then(snapshot => {
         snapshot.ref.getDownloadURL().then(url => {
-            user.updateProfile({ photoURL: url }).then(() => {
-                document.getElementById("userAvatar").src = url;
-                alert("Avatar updated!");
-            });
+            addPhotoToGallery(url, user.displayName || "ZTA Member");
+            document.getElementById("uploadStatus").textContent = "Uploaded successfully!";
+            e.target.value = ""; // reset input
         });
-    }).catch(err => alert("Upload failed: " + err.message));
+    }).catch(err => {
+        document.getElementById("uploadStatus").textContent = "Upload failed: " + err.message;
+    });
 });
 
+function addPhotoToGallery(url, name) {
+    const grid = document.getElementById("galleryGrid");
+    const item = document.createElement("div");
+    item.className = "gallery-item";
+    item.innerHTML = `<img src="${url}" alt="by ${name}"><div style="padding:15px;background:rgba(0,0,0,0.7);font-size:14px;color:#aaa;">${name}</div>`;
+    grid.prepend(item); // newest first
+}
+
 // Starfield
-const canvas=document.getElementById('stars');
-const ctx=canvas.getContext('2d');
-canvas.width=innerWidth;canvas.height=innerHeight;
-const stars=[];
-for(let i=0;i<900;i++){
-    stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2.5,s:Math.random()*0.9+0.2});
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let w = canvas.width = innerWidth;
+let h = canvas.height = innerHeight;
+const stars = [];
+for(let i=0;i<700;i++){
+    stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2,s:Math.random()*0.8+0.2});
 }
 function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    stars.forEach(s=>{ctx.fillStyle=`rgba(154,205,50,${s.s})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
-        s.y+=1;if(s.y>canvas.height)s.y=0;});
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle="#9acd32";
+    stars.forEach(s=>{ctx.globalAlpha=s.s;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+        s.y+=0.8;if(s.y>h)s.y=0;});
     requestAnimationFrame(animate);
 }
 animate();
-window.addEventListener('resize',()=>{canvas.width=innerWidth;canvas.height=innerHeight;});
+window.addEventListener('resize',()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;});
 </script>
 </body>
 </html>
