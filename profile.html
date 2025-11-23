@@ -168,7 +168,6 @@ footer{
 ——————————————————————— -->
 <div class="profile-dashboard">
 
-    <!-- LEFT SIDE -->
     <div class="profile-sidebar">
         <div class="avatar-container">
             <img src="" alt="Avatar" id="userAvatar">
@@ -181,7 +180,6 @@ footer{
         <p class="member-since">Member since <span id="memberSince">—</span></p>
     </div>
 
-    <!-- RIGHT SIDE -->
     <div class="activity">
         <h2 style="font-size:40px;margin-bottom:50px;background:linear-gradient(90deg,#9acd32,#72fe95);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
             Your Cosmic Activity
@@ -215,7 +213,7 @@ footer{
 
 <script>
 // ———————————————————————
-//   PROTECTED PROFILE PAGE
+//   AUTH + FIRESTORE
 // ———————————————————————
 firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
@@ -224,11 +222,9 @@ firebase.auth().onAuthStateChanged(async user => {
         return;
     }
 
-    // Navbar button
     document.getElementById("authButton").textContent = "Profile";
     document.getElementById("authButton").href = "profile.html";
 
-    // User info
     document.getElementById("userName").textContent = user.displayName || "Cosmonaut";
     document.getElementById("userEmail").textContent = user.email;
     document.getElementById("userAvatar").src = user.photoURL || "assets/default-avatar.jpg";
@@ -237,7 +233,6 @@ firebase.auth().onAuthStateChanged(async user => {
     document.getElementById("memberSince").textContent = created.toLocaleDateString('en-US', {year:'numeric', month:'long'});
     document.getElementById("daysActive").textContent = Math.floor((Date.now() - created.getTime()) / 86400000);
 
-    // LIVE FIRESTORE RANK
     firebase.firestore().collection("users").doc(user.uid)
     .onSnapshot(doc => {
         if (doc.exists) {
@@ -294,7 +289,7 @@ function animateStars() {
     stars.forEach(s => {
         ctx.globalAlpha = s.s;
         ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); /* FIXED */
         ctx.fill();
 
         s.y += 1;
