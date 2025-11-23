@@ -31,7 +31,7 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;          /* FIXED - stars behind everything */
+    z-index: 0;
     opacity: 0.55;
 }
 
@@ -74,7 +74,7 @@ canvas {
 
 .hero-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 15vw; /* EXTREME HUGE */
+    font-size: 15vw;
     letter-spacing: 40px;
     background: linear-gradient(90deg, #9acd32, #fff, #9acd32);
     -webkit-background-clip: text;
@@ -186,7 +186,61 @@ footer {
 <footer>© 2025 ZTA — Cosmic Ascension</footer>
 
 <script>
-// FIXED STARFIELD
+// 🔥 RANK CODES — EVERYONE HAS UNIQUE RANK
+const rankCodes = {
+    "VX9e!mA2Qf#7": "Starlight Beginner",
+    "pL4$X7wq@D8r": "Night Sky Explorer",
+    "Zu1!kM9#Tf4P": "Lens Apprentice",
+    "R3q%vB!8nL2s": "Star Tracker",
+    "yT7@Fh2$Qm6K": "Deep-Sky Learner",
+    "Jx8&bP1!Zw4r": "Celestial Shooter",
+    "mQ9@tC5#Hv2E": "Cosmic Observer",
+    "Wf3!Zk7%Ua9p": "Galaxy Seeker",
+    "Tg6$R2n@Yp4V": "Nebula Hunter",
+    "Bq1!S8m%Xe7H": "Meteor Master",
+    "Fv4#hP9*Ld3C": "Astro Voyager",
+    "Kw2!R7q@Mz6S": "Sky Illumination Pro",
+    "Pj3$N8l#Tc5A": "Cosmic Artisan",
+    "Sf9@xB4!Hm1D": "Interstellar Photographer",
+    "Lk5#Q2n!Vz8M": "Deep-Space Elite",
+    "Rg7!Wm3$Td9F": "Astro Imaging Expert",
+    "Uc8@Kp6#Hb2L": "Galactic Master",
+    "Yn4!Sd1%Xj7Q": "Nebula Grandmaster",
+    "Zt6#Mw8@Pc3F": "Celestial Legend",
+    "Qx9$Fe5!Vr2B": "Universe Prime"
+};
+
+// 🚀 Used codes memory (NO Firebase)
+let usedCodes = {};
+
+// ⭐ Redeem Function
+function redeemCode() {
+    const input = document.getElementById("codeInput").value.trim();
+    const status = document.getElementById("status");
+
+    if (!rankCodes[input]) {
+        status.textContent = "❌ INVALID CODE";
+        status.style.color = "#ff4444";
+        return;
+    }
+
+    if (usedCodes[input]) {
+        status.textContent = "❌ CODE ALREADY USED";
+        status.style.color = "#ff4444";
+        return;
+    }
+
+    usedCodes[input] = true;
+
+    const rank = rankCodes[input];
+    status.textContent = "✔ RANK UNLOCKED: " + rank;
+    status.style.color = "#72fe95";
+
+    document.getElementById("codeInput").value = "";
+}
+
+
+// ⭐ STARFIELD
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 
