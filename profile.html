@@ -5,7 +5,11 @@
 <title>ZTA – My Cosmic Profile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@300;600;900&display=swap" rel="stylesheet">
+
 <style>
+/* ———————————————————————
+   GLOBAL STYLE
+——————————————————————— */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
     font-family:'Exo 2',sans-serif;background:#000;color:#fff;min-height:100vh;
@@ -15,7 +19,9 @@ body{
 canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.65;}
 a{text-decoration:none;color:inherit;}
 
-/* Navbar */
+/* ———————————————————————
+   NAVBAR
+——————————————————————— */
 .navbar{
     position:fixed;top:0;width:100%;padding:22px 6%;display:flex;
     justify-content:space-between;align-items:center;z-index:9999;
@@ -23,26 +29,34 @@ a{text-decoration:none;color:inherit;}
     border-bottom:2px solid rgba(154,205,50,0.3);
     box-shadow:0 20px 60px rgba(0,0,0,0.8);
 }
-.logo{font-family:'Orbitron',sans-serif;font-size:42px;font-weight:900;letter-spacing:16px;
-      background:linear-gradient(90deg,#9acd32,#72fe95);-webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;text-shadow:0 0 60px #9acd32;}
+.logo{
+    font-family:'Orbitron',sans-serif;font-size:42px;font-weight:900;letter-spacing:16px;
+    background:linear-gradient(90deg,#9acd32,#72fe95);-webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;text-shadow:0 0 60px #9acd32;
+}
 .hamburger{display:none;cursor:pointer;}
-.hamburger span{display:block;width:34px;height:4px;background:#9acd32;margin:8px 0;
-                box-shadow:0 0 20px #9acd32;border-radius:4px;transition:all .6s;}
+.hamburger span{
+    display:block;width:34px;height:4px;background:#9acd32;margin:8px 0;
+    box-shadow:0 0 20px #9acd32;border-radius:4px;transition:all .6s;
+}
 .hamburger.active span:nth-child(1){transform:translateY(12px) rotate(45deg);}
 .hamburger.active span:nth-child(2){opacity:0;}
 .hamburger.active span:nth-child(3){transform:translateY(-12px) rotate(-45deg);}
 .nav-links{display:flex;gap:50px;align-items:center;}
 .nav-links a{font-size:19px;font-weight:700;position:relative;transition:all .5s;}
-.nav-links a::after{content:'';position:absolute;bottom:-12px;left:0;width:0;height:3px;
-                   background:#9acd32;box-shadow:0 0 30px #9acd32;transition:all .6s;}
+.nav-links a::after{
+    content:'';position:absolute;bottom:-12px;left:0;width:0;height:3px;
+    background:#9acd32;box-shadow:0 0 30px #9acd32;transition:all .6s;
+}
 .nav-links a:hover::after{width:100%;}
 .nav-links a.signup{
     background:linear-gradient(45deg,#9acd32,#72fe95);color:#000;padding:16px 40px;
     border-radius:60px;font-weight:900;box-shadow:0 0 60px rgba(154,205,50,0.7);
 }
 
-/* Profile Dashboard */
+/* ———————————————————————
+   PROFILE LAYOUT
+——————————————————————— */
 .profile-dashboard{
     max-width:1100px;margin:0 auto;padding:160px 5% 100px;display:grid;
     grid-template-columns:1fr 2fr;gap:80px;align-items:start;
@@ -62,13 +76,17 @@ a{text-decoration:none;color:inherit;}
     width:50px;height:50px;border-radius:50%;display:flex;align-items:center;
     justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 0 40px #9acd32;
 }
-#userName{font-family:'Orbitron',sans-serif;font-size:48px;margin:20px 0;
-          background:linear-gradient(90deg,#9acd32,#c6ff7a);
-          -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+#userName{
+    font-family:'Orbitron',sans-serif;font-size:48px;margin:20px 0;
+    background:linear-gradient(90deg,#9acd32,#c6ff7a);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
 #userEmail{color:#72fe95;font-size:22px;letter-spacing:2px;margin-bottom:30px;}
 .member-since{color:#aaa;font-size:18px;}
 
-/* Activity */
+/* ———————————————————————
+   ACTIVITY AREA
+——————————————————————— */
 .activity{
     background:rgba(20,10,60,0.7);padding:50px;border-radius:35px;
     border:3px solid rgba(154,205,50,0.3);backdrop-filter:blur(25px);
@@ -83,7 +101,9 @@ a{text-decoration:none;color:inherit;}
 .stat-number{font-size:50px;font-weight:900;color:#9acd32;}
 .stat-label{color:#aaa;font-size:16px;letter-spacing:2px;}
 
-/* Buttons */
+/* ———————————————————————
+   BUTTONS
+——————————————————————— */
 .actions{display:flex;gap:30px;flex-wrap:wrap;margin-top:40px;}
 .btn{
     padding:18px 50px;border-radius:60px;font-weight:900;font-size:18px;
@@ -94,16 +114,24 @@ a{text-decoration:none;color:inherit;}
 .btn-logout{background:transparent;border:3px solid #9acd32;color:#9acd32;}
 .btn-logout:hover{background:#9acd32;color:#000;}
 
-/* Footer */
-footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
-       border-top:2px solid rgba(154,205,50,0.2);}
+/* ———————————————————————
+   FOOTER
+——————————————————————— */
+footer{
+    text-align:center;padding:120px 20px;color:#555;font-size:17px;
+    border-top:2px solid rgba(154,205,50,0.2);
+}
 
-/* Mobile */
+/* ———————————————————————
+   MOBILE
+——————————————————————— */
 @media (max-width:968px){
     .hamburger{display:block;}
-    .nav-links{position:fixed;top:0;left:-100%;width:100%;height:100vh;
-               background:#000;padding-top:150px;flex-direction:column;gap:60px;
-               transition:left .6s;z-index:9998;}
+    .nav-links{
+        position:fixed;top:0;left:-100%;width:100%;height:100vh;
+        background:#000;padding-top:150px;flex-direction:column;gap:60px;
+        transition:left .6s;z-index:9998;
+    }
     .nav-links.active{left:0;}
     .profile-dashboard{grid-template-columns:1fr;gap:60px;}
 }
@@ -113,12 +141,16 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
 
 <canvas id="stars"></canvas>
 
-<!-- Navbar -->
+<!-- ———————————————————————
+     NAVBAR
+——————————————————————— -->
 <div class="navbar">
     <div class="logo">ZTA</div>
+
     <div class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('active')">
         <span></span><span></span><span></span>
     </div>
+
     <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -131,24 +163,30 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
     </div>
 </div>
 
-<!-- Profile Dashboard -->
+<!-- ———————————————————————
+     PROFILE SECTION
+——————————————————————— -->
 <div class="profile-dashboard">
+
+    <!-- LEFT SIDE -->
     <div class="profile-sidebar">
         <div class="avatar-container">
             <img src="" alt="Avatar" id="userAvatar">
-            <label for="avatarUpload" class="change-avatar">Camera</label>
+            <label for="avatarUpload" class="change-avatar">📷</label>
             <input type="file" id="avatarUpload" accept="image/*" style="display:none;">
         </div>
+
         <h1 id="userName">Loading...</h1>
         <p id="userEmail">...</p>
         <p class="member-since">Member since <span id="memberSince">—</span></p>
     </div>
 
+    <!-- RIGHT SIDE -->
     <div class="activity">
         <h2 style="font-size:40px;margin-bottom:50px;background:linear-gradient(90deg,#9acd32,#72fe95);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
             Your Cosmic Activity
         </h2>
-        
+
         <div class="stats-grid">
             <div class="stat-box"><div class="stat-number" id="totalCaptures">0</div><div class="stat-label">Images Uploaded</div></div>
             <div class="stat-box"><div class="stat-number" id="totalLikes">0</div><div class="stat-label">Total Likes</div></div>
@@ -156,7 +194,6 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
             <div class="stat-box"><div class="stat-number" id="daysActive">0</div><div class="stat-label">Days Active</div></div>
         </div>
 
-        <!-- FIXED BUTTON REDIRECTS -->
         <div class="actions">
             <a href="mygallery.html" class="btn btn-primary">My Gallery</a>
             <a href="members.html" class="btn btn-primary">Members Gallery</a>
@@ -164,11 +201,12 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
             <a href="logout.html" class="btn btn-logout">Logout</a>
         </div>
     </div>
+
 </div>
 
 <footer>© 2025 ZTA — Your Personal Corner of the Universe</footer>
 
-<!-- Firebase + Storage + Firestore -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
@@ -176,15 +214,17 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
 <script src="firebase.js"></script>
 
 <script>
-// FULLY PROTECTED + LIVE RANK + PERFECT NAVIGATION
-ZeroX.onAuthChange(user => {
+// ———————————————————————
+//   PROTECTED PROFILE PAGE
+// ———————————————————————
+firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
         alert("Please log in to view your profile");
         window.location.href = "login.html";
         return;
     }
 
-    // Update navbar
+    // Navbar button
     document.getElementById("authButton").textContent = "Profile";
     document.getElementById("authButton").href = "profile.html";
 
@@ -193,29 +233,30 @@ ZeroX.onAuthChange(user => {
     document.getElementById("userEmail").textContent = user.email;
     document.getElementById("userAvatar").src = user.photoURL || "assets/default-avatar.jpg";
 
-    const created = new Date(user.metadata.creationTime || Date.now());
-    document.getElementById("memberSince").textContent = created.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+    const created = new Date(user.metadata.creationTime);
+    document.getElementById("memberSince").textContent = created.toLocaleDateString('en-US', {year:'numeric', month:'long'});
     document.getElementById("daysActive").textContent = Math.floor((Date.now() - created.getTime()) / 86400000);
 
-    // LIVE RANK FROM FIRESTORE
-    firebase.firestore().collection("users").doc(user.uid).onSnapshot(doc => {
+    // LIVE FIRESTORE RANK
+    firebase.firestore().collection("users").doc(user.uid)
+    .onSnapshot(doc => {
         if (doc.exists) {
             const data = doc.data();
             document.getElementById("rankLevel").textContent = data.rank || "Starlight Beginner";
             document.getElementById("totalCaptures").textContent = data.captures || 0;
             document.getElementById("totalLikes").textContent = data.likes || 0;
-        } else {
-            document.getElementById("rankLevel").textContent = "Starlight Beginner";
         }
     });
 });
 
-// AVATAR UPLOAD
+// ———————————————————————
+//   AVATAR UPLOAD
+// ———————————————————————
 document.getElementById("avatarUpload").addEventListener("change", e => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const user = ZeroX.user();
+    const user = firebase.auth().currentUser;
     const storageRef = firebase.storage().ref("avatars/" + user.uid + ".jpg");
 
     storageRef.put(file).then(() => {
@@ -225,19 +266,21 @@ document.getElementById("avatarUpload").addEventListener("change", e => {
                 alert("Avatar updated!");
             });
         });
-    }).catch(err => alert("Upload failed: " + err.message));
+    });
 });
 
-// Starfield
-const canvas = document.getElementById('stars');
-const ctx = canvas.getContext('2d');
-let w = canvas.width = innerWidth;
-let h = canvas.height = innerHeight;
+// ———————————————————————
+//   STARFIELD ANIMATION (FIXED)
+// ———————————————————————
+const canvasEl = document.getElementById('stars');
+const ctx = canvasEl.getContext('2d');
+let w = canvasEl.width = innerWidth;
+let h = canvasEl.height = innerHeight;
 const stars = [];
 for(let i = 0; i < 900; i++){
     stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2.5,s:Math.random()*0.9+0.2});
 }
-function animate(){
+function animateStars(){
     ctx.clearRect(0,0,w,h);
     ctx.fillStyle = "#9acd32";
     stars.forEach(s => {
@@ -248,10 +291,11 @@ function animate(){
         s.y += 1;
         if(s.y > h) s.y = 0;
     });
-    requestAnimationFrame(animate);
+    requestAnimationFrame(animateStars);
 }
-animate();
-window.addEventListener('resize',()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;});
+animateStars();
+window.addEventListener('resize',()=>{w=canvasEl.width=innerWidth;h=canvasEl.height=innerHeight;});
 </script>
+
 </body>
 </html>
