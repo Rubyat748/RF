@@ -2,214 +2,173 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ZTA – ADMIN PANEL</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Exo+2:wght@600;900&display=swap" rel="stylesheet">
-
+<title>ZTA Alien Admin Panel</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-    font-family:'Exo 2',sans-serif;background:#000;color:#fff;
-    background:radial-gradient(circle at 50% 50%, #0a0320 0%, #000 70%);
-    overflow-x:hidden;
-}
-canvas{
-    position:fixed;top:0;left:0;width:100%;height:100%;
-    z-index:1;opacity:0.6;
-}
-
-/* NAVBAR */
-.navbar{
-    position:fixed;top:0;width:100%;padding:40px 6%;
-    display:flex;justify-content:space-between;align-items:center;
-    background:rgba(10,5,40,0.85);backdrop-filter:blur(40px);
-    border-bottom:6px solid #9acd32;
-    z-index:9999;
-}
-.logo{
-    font-family:'Orbitron',sans-serif;font-size:90px;font-weight:900;
-    background:linear-gradient(90deg,#9acd32,#72fe95);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    letter-spacing:25px;
-    text-shadow:0 0 120px #9acd32;
-}
-.home-btn{
-    font-size:50px;padding:20px 60px;font-weight:900;border-radius:30px;
-    background:#9acd32;color:#000;cursor:pointer;transition:.3s;
-}
-.home-btn:hover{transform:scale(1.1);background:#c6ff7a;}
-
-/* PAGE TITLE */
-.admin-title{
-    margin-top:240px;
-    text-align:center;
-    font-family:'Orbitron',sans-serif;
-    font-size:150px;
-    background:linear-gradient(90deg,#9acd32,#fff,#9acd32);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    text-shadow:0 0 200px #9acd32;
-    letter-spacing:30px;
-    animation:levitate 10s infinite ease-in-out;
+/* ==============================
+   COSMIC ALIEN CONTROL ROOM UI
+   ============================== */
+body {
+  margin: 0;
+  background: radial-gradient(circle at 50% 50%, #120016, #050008 70%);
+  font-family: 'Orbitron', sans-serif;
+  color: #9af7ff;
+  overflow-x: hidden;
 }
 
-/* ADMIN PANEL BOX */
-.panel{
-    max-width:1400px;margin:120px auto;padding:100px;
-    background:rgba(20,10,80,0.6);border-radius:80px;
-    border:6px solid rgba(154,205,50,0.4);backdrop-filter:blur(40px);
-    text-align:center;
-    box-shadow:0 80px 250px rgba(154,205,50,0.4);
-    z-index:3;
+/* STARFIELD */
+.starfield, .starfield:before, .starfield:after {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  content: "";
+  background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="3" height="3"><circle cx="1.5" cy="1.5" r="1.5" fill="white" /></svg>') repeat;
+  animation: drift 120s linear infinite;
+  opacity: 0.18;
 }
-.panel h2{
-    font-size:80px;margin-bottom:60px;
-    text-shadow:0 0 60px #72fe95;
+.starfield:before { animation-duration: 200s; opacity: 0.12; }
+.starfield:after { animation-duration: 300s; opacity: 0.08; }
+@keyframes drift { from { transform: translateY(0); } to { transform: translateY(-2000px); } }
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 38px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #71faff;
+  text-shadow: 0 0 15px #00eaff, 0 0 30px #0084ff;
 }
 
-/* ACTION BUTTONS */
-.admin-btn{
-    display:block;width:100%;padding:45px;margin:30px 0;
-    font-size:60px;font-weight:900;border-radius:60px;
-    background:#9acd32;color:#000;cursor:pointer;
-    box-shadow:0 0 120px rgba(154,205,50,1);
-    transition:0.3s;
-}
-.admin-btn:hover{transform:scale(1.08);background:#c6ff7a;}
-
-/* STATUS TEXT */
-#status{
-    margin-top:50px;font-size:55px;color:#72fe95;font-weight:900;
+/* PANEL GRID */
+.container {
+  width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  padding-bottom: 50px;
 }
 
-/* FOOTER */
-footer{
-    margin-top:200px;text-align:center;padding:160px 20px;
-    font-size:40px;color:#555;
-    border-top:6px solid rgba(154,205,50,0.4);
+/* CONTROL PANELS */
+.panel {
+  background: rgba(0, 255, 255, 0.06);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  padding: 25px;
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.18);
+  transition: 0.3s;
+}
+.panel:hover {
+  box-shadow: 0 0 45px rgba(0, 255, 255, 0.35);
+  transform: translateY(-4px);
 }
 
-/* Anim */
-@keyframes levitate{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-100px);}
+.panel h2 {
+  color: #76faff;
+  text-shadow: 0 0 12px #1fffff;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #00eaff;
+  background: rgba(0, 255, 255, 0.08);
+  color: #c8ffff;
+  font-size: 14px;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background: rgba(0, 255, 255, 0.2);
+  transition: 0.25s;
+}
+button:hover {
+  background: rgba(0, 255, 255, 0.35);
+  box-shadow: 0 0 20px #00eaff;
+}
+
+/* LOG TABLE */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  color: #bdfdff;
+}
+.table th, .table td {
+  border: 1px solid rgba(0,255,255,0.3);
+  padding: 12px;
+  text-align: left;
+}
+.table th {
+  background: rgba(0,255,255,0.18);
 }
 </style>
 </head>
-
 <body>
+<div class="starfield"></div>
+<header>ZTA Alien Admin Control Core</header>
 
-<canvas id="stars"></canvas>
+<div class="container">
 
-<div class="navbar">
-    <div class="logo">ZTA</div>
-    <button class="home-btn" onclick="location.href='index.html'">HOME</button>
+  <div class="panel">
+    <h2>Add Rank Code</h2>
+    <input id="newCode" placeholder="Enter new rank code">
+    <button onclick="addCode()">Add Code</button>
+  </div>
+
+  <div class="panel">
+    <h2>Delete Rank Code</h2>
+    <input id="deleteCode" placeholder="Enter code to delete">
+    <button onclick="deleteCode()">Delete Code</button>
+  </div>
+
+  <div class="panel">
+    <h2>View All Users</h2>
+    <button onclick="loadUsers()">Load Users</button>
+    <table class="table" id="userTable"></table>
+  </div>
+
+  <div class="panel">
+    <h2>View Redeemed Codes</h2>
+    <button onclick="loadRedeemed()">Load Redeemed</button>
+    <table class="table" id="redeemTable"></table>
+  </div>
+
+  <div class="panel">
+    <h2>Ban / Unban User</h2>
+    <input id="banEmail" placeholder="Email">
+    <select id="banType">
+      <option value="ban">Ban</option>
+      <option value="unban">Unban</option>
+    </select>
+    <button onclick="banUser()">Apply</button>
+  </div>
+
+  <div class="panel">
+    <h2>Change User Rank</h2>
+    <input id="rankEmail" placeholder="Email">
+    <input id="newRank" placeholder="New Rank">
+    <button onclick="changeRank()">Update Rank</button>
+  </div>
+
 </div>
-
-<h1 class="admin-title">ADMIN PANEL</h1>
-
-<div class="panel">
-
-    <h2>CONTROL CENTER</h2>
-
-    <button class="admin-btn" onclick="loadUsers()">📜 VIEW ALL USERS</button>
-    <button class="admin-btn" onclick="changeRank()">⭐ CHANGE USER RANK</button>
-    <button class="admin-btn" onclick="removeUser()">🗑 REMOVE USER</button>
-    <button class="admin-btn" onclick="addCode()">➕ ADD NEW RANK CODE</button>
-    <button class="admin-btn" onclick="logout()">🚪 LOGOUT</button>
-
-    <p id="status"></p>
-
-</div>
-
-<footer>© 2025 ZTA — Admin System v3 (EXTREME MODE)</footer>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
 
 <script>
-// AUTH PROTECTION
-ZeroX.onAuthChange(user=>{
-    if(!user){
-        alert("Login Required");
-        location.href="login.html";
-    }
-});
-
-// VIEW USERS
-function loadUsers(){
-    const db=firebase.firestore();
-    db.collection("users").get().then(snapshot=>{
-        let list="";
-        snapshot.forEach(doc=>{
-            const u=doc.data();
-            list+=`${u.username} — Rank: ${u.rank}\n`;
-        });
-        alert(list || "No Users Found");
-    });
-}
-
-// CHANGE RANK
-function changeRank(){
-    let uid=prompt("Enter USER UID:");
-    let rank=prompt("Enter NEW RANK:");
-    if(!uid||!rank)return;
-
-    firebase.firestore().collection("users").doc(uid).update({rank, badge:rank})
-    .then(()=>{status.textContent="✔ RANK UPDATED";});
-}
-
-// REMOVE USER
-function removeUser(){
-    let uid=prompt("Enter USER UID to REMOVE:");
-    if(!uid)return;
-
-    firebase.firestore().collection("users").doc(uid).delete()
-    .then(()=>{status.textContent="✔ USER REMOVED";});
-}
-
-// ADD CODE
-function addCode(){
-    let code=prompt("Enter NEW CODE:");
-    let rank=prompt("Enter RANK for that CODE:");
-    if(!code||!rank)return;
-
-    firebase.firestore().collection("rankCodes").doc(code).set({
-        rank:rank
-    }).then(()=>{
-        status.textContent="✔ NEW CODE ADDED";
-    });
-}
-
-// LOGOUT
-function logout(){
-    ZeroX.logout();
-    location.href="login.html";
-}
-
-// STARFIELD
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
-let w=canvas.width=innerWidth;
-let h=canvas.height=innerHeight;
-const stars=[];
-for(let i=0;i<1400;i++){
-    stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*3,s:Math.random()*1});
-}
-function animate(){
-    ctx.clearRect(0,0,w,h);
-    ctx.fillStyle="#9acd32";
-    stars.forEach(s=>{
-        ctx.globalAlpha=s.s;
-        ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
-        s.y+=1.2;if(s.y>h)s.y=0;
-    });
-    requestAnimationFrame(animate);
-}
-animate();
+/* Placeholder JS (real Firebase will be added later if needed) */
+function addCode(){alert("Code Added")}
+function deleteCode(){alert("Code Deleted")}
+function loadUsers(){document.getElementById("userTable").innerHTML='<tr><th>Email</th><th>Rank</th></tr>'}
+function loadRedeemed(){document.getElementById("redeemTable").innerHTML='<tr><th>Code</th><th>User</th></tr>'}
+function banUser(){alert("Updated")}
+function changeRank(){alert("Rank Changed")}
 </script>
-
 </body>
 </html>
