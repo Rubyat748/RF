@@ -5,6 +5,7 @@
 <title>ZTA – Redeem Your Rank</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Exo+2:wght@600;900&display=swap" rel="stylesheet">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
@@ -13,7 +14,6 @@ body{
 }
 canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.7;}
 
-/* Premium Navbar */
 .navbar{
     position:fixed;top:0;width:100%;padding:22px 6%;display:flex;
     justify-content:space-between;align-items:center;z-index:9999;
@@ -24,10 +24,9 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.7;
       background:linear-gradient(90deg,#9acd32,#72fe95);-webkit-background-clip:text;
       -webkit-text-fill-color:transparent;text-shadow:0 0 80px #9acd32;}
 
-/* Hero */
 .hero{
     height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    position:relative;text-align:center;
+    position:relative;text-align:center;z-index:2;
 }
 .hero::before{content:"";position:absolute;inset:0;
               background:linear-gradient(135deg,rgba(10,0,60,0.95),rgba(0,0,0,0.98));}
@@ -43,12 +42,11 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.7;
     text-shadow:0 0 60px #72fe95;
 }
 
-/* Redeem Box */
 .redeem-box{
     max-width:800px;margin:100px auto;padding:60px;
     background:rgba(20,10,80,0.7);border-radius:50px;
     border:4px solid rgba(154,205,50,0.4);backdrop-filter:blur(30px);
-    text-align:center;box-shadow:0 60px 200px rgba(154,205,50,0.4);
+    text-align:center;box-shadow:0 60px 200px rgba(154,205,50,0.4);z-index:2;
 }
 .redeem-input{
     width:100%;padding:25px;font-size:28px;text-align:center;
@@ -63,27 +61,8 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.7;
 }
 .redeem-btn:hover{background:#c6ff7a;transform:scale(1.15);}
 
-/* Ranks Grid */
-.ranks-grid{
-    max-width:1600px;margin:100px auto;padding:0 5%;display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px;
-}
-.rank-card{
-    background:rgba(20,10,80,0.6);padding:40px;border-radius:40px;
-    border:3px solid rgba(154,205,50,0.2);text-align:center;
-    transition:all .8s;box-shadow:0 40px 120px rgba(0,0,0,0.8);
-}
-.rank-card:hover{border-color:#9acd32;box-shadow:0 80px 250px rgba(154,205,50,0.6);}
-.rank-name{
-    font-family:'Orbitron',sans-serif;font-size:32px;margin-bottom:15px;
-    background:linear-gradient(90deg,#9acd32,#c6ff7a);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.rank-level{color:#72fe95;font-size:20px;}
-
-/* Footer */
 footer{text-align:center;padding:140px 20px;color:#555;font-size:18px;
-       border-top:4px solid rgba(154,205,50,0.3);background:rgba(0,0,0,0.8);}
+       border-top:4px solid rgba(154,205,50,0.3);background:rgba(0,0,0,0.8);margin-top:200px;}
 
 @keyframes levitate{0%,100%{transform:translateY(0);}50%{transform:translateY(-80px);}}
 </style>
@@ -92,58 +71,31 @@ footer{text-align:center;padding:140px 20px;color:#555;font-size:18px;
 
 <canvas id="stars"></canvas>
 
-<!-- Navbar -->
 <div class="navbar">
     <div class="logo">ZTA</div>
 </div>
 
-<!-- Hero -->
 <div class="hero">
     <h1 class="hero-title">REDEEM YOUR RANK</h1>
     <p class="hero-subtitle">Enter your cosmic code below</p>
 </div>
 
-<!-- Redeem Box -->
 <div class="redeem-box">
-    <input type="text" class="redeem-input" id="codeInput" placeholder="ENTER CODE HERE" maxlength="12">
+    <input type="text" class="redeem-input" id="codeInput" placeholder="ENTER CODE HERE" maxlength="20">
     <button class="redeem-btn" onclick="redeemCode()">REDEEM NOW</button>
     <p id="status" style="margin-top:30px;font-size:24px;color:#72fe95;"></p>
 </div>
 
-<!-- 20 Legendary Ranks -->
-<div class="ranks-grid">
-    <div class="rank-card"><div class="rank-name">Starlight Beginner</div><div class="rank-level">Level 1</div></div>
-    <div class="rank-card"><div class="rank-name">Night Sky Explorer</div><div class="rank-level">Level 2</div></div>
-    <div class="rank-card"><div class="rank-name">Lens Apprentice</div><div class="rank-level">Level 3</div></div>
-    <div class="rank-card"><div class="rank-name">Star Tracker</div><div class="rank-level">Level 4</div></div>
-    <div class="rank-card"><div class="rank-name">Deep-Sky Learner</div><div class="rank-level">Level 5</div></div>
-    <div class="rank-card"><div class="rank-name">Celestial Shooter</div><div class="rank-level">Level 6</div></div>
-    <div class="rank-card"><div class="rank-name">Cosmic Observer</div><div class="rank-level">Level 7</div></div>
-    <div class="rank-card"><div class="rank-name">Galaxy Seeker</div><div class="rank-level">Level 8</div></div>
-    <div class="rank-card"><div class="rank-name">Nebula Hunter</div><div class="rank-level">Level 9</div></div>
-    <div class="rank-card"><div class="rank-name">Meteor Master</div><div class="rank-level">Level 10</div></div>
-    <div class="rank-card"><div class="rank-name">Astro Voyager</div><div class="rank-level">Level 11</div></div>
-    <div class="rank-card"><div class="rank-name">Sky Illumination Pro</div><div class="rank-level">Level 12</div></div>
-    <div class="rank-card"><div class="rank-name">Cosmic Artisan</div><div class="rank-level">Level 13</div></div>
-    <div class="rank-card"><div class="rank-name">Interstellar Photographer</div><div class="rank-level">Level 14</div></div>
-    <div class="rank-card"><div class="rank-name">Deep-Space Elite</div><div class="rank-level">Level 15</div></div>
-    <div class="rank-card"><div class="rank-name">Astro Imaging Expert</div><div class="rank-level">Level 16</div></div>
-    <div class="rank-card"><div class="rank-name">Galactic Master</div><div class="rank-level">Level 17</div></div>
-    <div class="rank-card"><div class="rank-name">Nebula Grandmaster</div><div class="rank-level">Level 18</div></div>
-    <div class="rank-card"><div class="rank-name">Celestial Legend</div><div class="rank-level">Level 19</div></div>
-    <div class="rank-card"><div class="rank-name">Universe Prime</div><div class="rank-level">Level 20 — FINAL</div></div>
-</div>
-
 <footer>© 2025 ZTA — Rise Through the Ranks</footer>
 
-<!-- Firebase + Firestore -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="firebase.js"></script>
 
 <script>
-// PROTECTED
+// Protect Page
 ZeroX.onAuthChange(user => {
     if (!user) {
         alert("Login required");
@@ -151,63 +103,78 @@ ZeroX.onAuthChange(user => {
     }
 });
 
-// 200 UNIQUE CODES (10 per rank) — ONE-TIME USE
-const codes = {
-    "ZTA-2025-BEGIN": "Starlight Beginner",
-    "ZTA-2025-EXPLORE": "Night Sky Explorer",
-    "ZTA-2025-LENS": "Lens Apprentice",
-    "ZTA-2025-TRACK": "Star Tracker",
-    "ZTA-2025-DEEP": "Deep-Sky Learner",
-    "ZTA-2025-SHOOT": "Celestial Shooter",
-    "ZTA-2025-COSMIC": "Cosmic Observer",
-    "ZTA-2025-GALAXY": "Galaxy Seeker",
-    "ZTA-2025-NEBULA": "Nebula Hunter",
-    "ZTA-2025-METEOR": "Meteor Master",
-    "ZTA-2025-VOYAGE": "Astro Voyager",
-    "ZTA-2025-PRO": "Sky Illumination Pro",
-    "ZTA-2025-ARTISAN": "Cosmic Artisan",
-    "ZTA-2025-INTER": "Interstellar Photographer",
-    "ZTA-2025-ELITE": "Deep-Space Elite",
-    "ZTA-2025-EXPERT": "Astro Imaging Expert",
-    "ZTA-2025-MASTER": "Galactic Master",
-    "ZTA-2025-GRAND": "Nebula Grandmaster",
-    "ZTA-2025-LEGEND": "Celestial Legend",
-    "ZTA-2025-PRIME": "Universe Prime"
-    // Add 180 more unique codes if needed
+// =============================
+// 20 BEST SECURE RANK CODES
+// =============================
+
+const rankCodes = {
+    "VX9e!mA2Qf#7": "Starlight Beginner",
+    "pL4$X7wq@D8r": "Night Sky Explorer",
+    "Zu1!kM9#Tf4P": "Lens Apprentice",
+    "R3q%vB!8nL2s": "Star Tracker",
+    "yT7@Fh2$Qm6K": "Deep-Sky Learner",
+    "Jx8&bP1!Zw4r": "Celestial Shooter",
+    "mQ9@tC5#Hv2E": "Cosmic Observer",
+    "Wf3!Zk7%Ua9p": "Galaxy Seeker",
+    "Tg6$R2n@Yp4V": "Nebula Hunter",
+    "Bq1!S8m%Xe7H": "Meteor Master",
+    "Fv4#hP9*Ld3C": "Astro Voyager",
+    "Kw2!R7q@Mz6S": "Sky Illumination Pro",
+    "Pj3$N8l#Tc5A": "Cosmic Artisan",
+    "Sf9@xB4!Hm1D": "Interstellar Photographer",
+    "Lk5#Q2n!Vz8M": "Deep-Space Elite",
+    "Rg7!Wm3$Td9F": "Astro Imaging Expert",
+    "Uc8@Kp6#Hb2L": "Galactic Master",
+    "Yn4!Sd1%Xj7Q": "Nebula Grandmaster",
+    "Zt6#Mw8@Pc3F": "Celestial Legend",
+    "Qx9$Fe5!Vr2B": "Universe Prime"
 };
 
+// =============================
+// REDEEM FUNCTION
+// =============================
 function redeemCode() {
-    const input = document.getElementById("codeInput").value.trim().toUpperCase();
+    const input = document.getElementById("codeInput").value.trim();
     const status = document.getElementById("status");
 
-    if (!codes[input]) {
-        status.textContent = "Invalid code";
+    if (!rankCodes[input]) {
+        status.textContent = "❌ Invalid code";
         status.style.color = "#ff3333";
         return;
     }
 
-    // Check if code already used
-    firebase.firestore().collection("usedCodes").doc(input).get().then(doc => {
+    const db = firebase.firestore();
+    const user = ZeroX.user();
+
+    // Check if used
+    db.collection("usedCodes").doc(input).get().then(doc => {
         if (doc.exists) {
-            status.textContent = "Code already redeemed!";
-            status.style.color = "#ff6666";
+            status.textContent = "❌ Code already redeemed";
+            status.style.color = "#ff4444";
             return;
         }
 
-        // Save as used + upgrade rank
-        const user = ZeroX.user();
-        firebase.firestore().collection("usedCodes").doc(input).set({ usedBy: user.uid });
-        firebase.firestore().collection("users").doc(user.uid).update({
-            rank: codes[input]
+        // Mark as used
+        db.collection("usedCodes").doc(input).set({
+            usedBy: user.uid,
+            usedAt: Date.now()
+        });
+
+        // Update user rank + badge
+        db.collection("users").doc(user.uid).update({
+            rank: rankCodes[input],
+            badge: rankCodes[input]
         }).then(() => {
-            status.textContent = `RANK UPGRADED: ${codes[input]}!`;
+            status.textContent = "✔ RANK UNLOCKED: " + rankCodes[input];
             status.style.color = "#72fe95";
             document.getElementById("codeInput").value = "";
         });
     });
 }
 
-// Starfield
+// =============================
+// STARFIELD ANIMATION
+// =============================
 const canvas=document.getElementById('stars');
 const ctx=canvas.getContext('2d');
 let w=canvas.width=innerWidth,h=canvas.height=innerHeight;
@@ -216,8 +183,10 @@ for(let i=0;i<1000;i++)stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.ra
 function animate(){
     ctx.clearRect(0,0,w,h);
     ctx.fillStyle="#9acd32";
-    stars.forEach(s=>{ctx.globalAlpha=s.s;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
-        s.y+=1.2;if(s.y>h)s.y=0;});
+    stars.forEach(s=>{
+        ctx.globalAlpha=s.s;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+        s.y+=1.2;if(s.y>h)s.y=0;
+    });
     requestAnimationFrame(animate);
 }
 animate();
