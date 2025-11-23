@@ -142,7 +142,7 @@ footer{
 <canvas id="stars"></canvas>
 
 <!-- ———————————————————————
-     NAVBAR
+   NAVBAR
 ——————————————————————— -->
 <div class="navbar">
     <div class="logo">ZTA</div>
@@ -164,11 +164,11 @@ footer{
 </div>
 
 <!-- ———————————————————————
-     PROFILE SECTION
+   PROFILE SECTION
 ——————————————————————— -->
 <div class="profile-dashboard">
 
-    <!-- LEFT SIDE -->
+    <!-- LEFT -->
     <div class="profile-sidebar">
         <div class="avatar-container">
             <img src="" alt="Avatar" id="userAvatar">
@@ -181,7 +181,7 @@ footer{
         <p class="member-since">Member since <span id="memberSince">—</span></p>
     </div>
 
-    <!-- RIGHT SIDE -->
+    <!-- RIGHT -->
     <div class="activity">
         <h2 style="font-size:40px;margin-bottom:50px;background:linear-gradient(90deg,#9acd32,#72fe95);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
             Your Cosmic Activity
@@ -270,31 +270,46 @@ document.getElementById("avatarUpload").addEventListener("change", e => {
 });
 
 // ———————————————————————
-//   STARFIELD ANIMATION (FIXED)
+//   STARFIELD FIXED
 // ———————————————————————
 const canvasEl = document.getElementById('stars');
 const ctx = canvasEl.getContext('2d');
+
 let w = canvasEl.width = innerWidth;
 let h = canvasEl.height = innerHeight;
+
 const stars = [];
-for(let i = 0; i < 900; i++){
-    stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2.5,s:Math.random()*0.9+0.2});
+for (let i = 0; i < 900; i++) {
+    stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 2.5,
+        s: Math.random() * 0.9 + 0.2
+    });
 }
+
 function animateStars(){
     ctx.clearRect(0,0,w,h);
     ctx.fillStyle = "#9acd32";
+
     stars.forEach(s => {
         ctx.globalAlpha = s.s;
         ctx.beginPath();
-        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); /* FIXED LINE */
         ctx.fill();
+
         s.y += 1;
-        if(s.y > h) s.y = 0;
+        if (s.y > h) s.y = 0;
     });
+
     requestAnimationFrame(animateStars);
 }
 animateStars();
-window.addEventListener('resize',()=>{w=canvasEl.width=innerWidth;h=canvasEl.height=innerHeight;});
+
+window.addEventListener('resize', ()=>{
+    w = canvasEl.width = innerWidth;
+    h = canvasEl.height = innerHeight;
+});
 </script>
 
 </body>
