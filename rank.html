@@ -2,233 +2,230 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ZTA – Redeem Your Rank</title>
+<title>ZTA – Redeem Your Rank (EXTREME MODE)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Exo+2:wght@600;900&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-    font-family:'Exo 2',sans-serif;background:#000;color:#fff;min-height:100vh;
-    background:radial-gradient(circle at 50% 50%, #0f0529 0%, #000 70%);
-    overflow-x:hidden;
-}
-canvas{
-    position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.7;
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* ======================= */
-/*     EXTREME NAVBAR      */
-/* ======================= */
-.navbar{
-    position:fixed;top:0;width:100%;padding:40px 6%;display:flex;
-    justify-content:space-between;align-items:center;z-index:9999;
-    background:rgba(10,5,40,0.85);backdrop-filter:blur(40px);
-    border-bottom:6px solid #9acd32;box-shadow:0 40px 150px rgba(0,0,0,0.9);
-}
-.logo{
-    font-family:'Orbitron',sans-serif;font-size:90px;font-weight:900;letter-spacing:25px;
-    background:linear-gradient(90deg,#9acd32,#72fe95);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    text-shadow:0 0 120px #9acd32;
-}
-.home-btn{
-    font-size:50px;padding:20px 60px;font-weight:900;border-radius:30px;
-    background:#9acd32;color:#000;cursor:pointer;transition:.3s;
-}
-.home-btn:hover{transform:scale(1.1);background:#c6ff7a;}
-
-/* ======================= */
-/*   EXTREME HERO SECTION  */
-/* ======================= */
-.hero{
-    height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    position:relative;text-align:center;z-index:2;
-}
-.hero-title{
-    font-family:'Orbitron',sans-serif;
-    font-size:clamp(150px,20vw,300px);
-    background:linear-gradient(90deg,#9acd32,#ffffff,#9acd32);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    text-shadow:0 0 200px #9acd32;
-    letter-spacing:35px;
-    animation:levitate 10s ease-in-out infinite;
-}
-.hero-subtitle{
-    font-size:60px;
-    color:#72fe95;margin-top:60px;letter-spacing:15px;
-    text-shadow:0 0 100px #72fe95;
+/* BODY */
+body {
+    font-family: 'Exo 2', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 50%, #120636 0%, #000 75%);
 }
 
-/* ======================= */
-/*  EXTREME REDEEM BOX     */
-/* ======================= */
-.redeem-box{
-    max-width:1200px;margin:140px auto;padding:100px;
-    background:rgba(20,10,80,0.7);border-radius:80px;
-    border:6px solid rgba(154,205,50,0.4);backdrop-filter:blur(40px);
-    text-align:center;box-shadow:0 80px 250px rgba(154,205,50,0.4);
-    z-index:2;
-}
-.redeem-input{
-    width:100%;padding:50px;font-size:55px;text-align:center;
-    background:rgba(0,0,0,0.7);border:5px solid #9acd32;border-radius:50px;
-    color:#fff;outline:none;transition:all .5s;margin-bottom:60px;
-}
-.redeem-input:focus{border-color:#c6ff7a;box-shadow:0 0 150px rgba(154,205,50,0.8);}
-.redeem-btn{
-    background:#9acd32;color:#000;padding:40px 140px;border-radius:100px;
-    font-size:60px;font-weight:900;cursor:pointer;
-    box-shadow:0 0 150px rgba(154,205,50,0.9);transition:all .6s;
-}
-.redeem-btn:hover{background:#c6ff7a;transform:scale(1.2);}
-
-#status{
-    margin-top:40px;font-size:55px;font-weight:900;
+/* CANVAS */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;          /* FIXED - stars behind everything */
+    opacity: 0.55;
 }
 
-/* ======================= */
-footer{
-    text-align:center;padding:180px 20px;color:#555;font-size:40px;
-    border-top:6px solid rgba(154,205,50,0.3);
-    background:rgba(0,0,0,0.8);margin-top:260px;
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 40px 7%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 9999;
+    background: rgba(10, 5, 40, 0.85);
+    backdrop-filter: blur(30px);
+    border-bottom: 5px solid #9acd32;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.7);
 }
 
-/* Animations */
-@keyframes levitate{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-120px);}
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 78px;
+    font-weight: 900;
+    letter-spacing: 20px;
+    background: linear-gradient(90deg, #9acd32, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 90px #9acd32;
+}
+
+/* HERO */
+.hero {
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    position: relative;
+}
+
+.hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15vw; /* EXTREME HUGE */
+    letter-spacing: 40px;
+    background: linear-gradient(90deg, #9acd32, #fff, #9acd32);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 200px #9acd32;
+    animation: float 10s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-80px); }
+}
+
+.hero-subtitle {
+    font-size: 52px;
+    margin-top: 50px;
+    letter-spacing: 12px;
+    color: #72fe95;
+    text-shadow: 0 0 80px #72fe95;
+}
+
+/* REDEEM BOX EXTREME */
+.redeem-box {
+    max-width: 1100px;
+    margin: 250px auto;
+    padding: 80px;
+    border-radius: 50px;
+    border: 5px solid rgba(154,205,50,0.5);
+    box-shadow: 0 60px 200px rgba(154,205,50,0.5);
+    background: rgba(10, 0, 50, 0.55);
+    backdrop-filter: blur(40px);
+    z-index: 10;
+    position: relative;
+    text-align: center;
+}
+
+.redeem-input {
+    width: 100%;
+    padding: 40px;
+    font-size: 45px;
+    text-align: center;
+    border-radius: 40px;
+    background: rgba(0,0,0,0.7);
+    border: 4px solid #9acd32;
+    color: #fff;
+    outline: none;
+    margin-bottom: 60px;
+    transition: 0.4s;
+    z-index: 5000;
+    position: relative;
+}
+
+.redeem-input:focus {
+    border-color: #c6ff7a;
+    box-shadow: 0 0 80px #9acd32;
+}
+
+.redeem-btn {
+    padding: 40px 120px;
+    border-radius: 100px;
+    font-size: 45px;
+    font-weight: 900;
+    background: #9acd32;
+    color: #000;
+    cursor: pointer;
+    transition: 0.4s;
+    box-shadow: 0 0 150px #9acd32;
+}
+
+.redeem-btn:hover {
+    background: #c6ff7a;
+    transform: scale(1.15);
+}
+
+/* FOOTER */
+footer {
+    margin-top: 200px;
+    padding: 40px;
+    text-align: center;
+    font-size: 35px;
+    color: #888;
+    border-top: 4px solid rgba(154,205,50,0.3);
+    background: rgba(0,0,0,0.8);
+    z-index: 20;
+    position: relative;
 }
 </style>
 </head>
+
 <body>
 
 <canvas id="stars"></canvas>
 
-<!-- NAVBAR -->
 <div class="navbar">
     <div class="logo">ZTA</div>
-    <button class="home-btn" onclick="location.href='index.html'">HOME</button>
 </div>
 
-<!-- HERO -->
 <div class="hero">
-    <h1 class="hero-title">REDEEM YOUR RANK</h1>
-    <p class="hero-subtitle">ENTER YOUR COSMIC CODE</p>
+    <h1 class="hero-title">REDEEM</h1>
+    <p class="hero-subtitle">ENTER YOUR COSMIC KEY</p>
 </div>
 
-<!-- REDEEM AREA -->
 <div class="redeem-box">
-    <input type="text" class="redeem-input" id="codeInput" placeholder="ENTER CODE HERE" maxlength="25">
+    <input id="codeInput" maxlength="20" class="redeem-input" placeholder="ENTER CODE HERE">
     <button class="redeem-btn" onclick="redeemCode()">REDEEM NOW</button>
-    <p id="status"></p>
+    <p id="status" style="margin-top:40px;font-size:40px;"></p>
 </div>
 
-<footer>© 2025 ZTA — Rise Through the Ranks</footer>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
+<footer>© 2025 ZTA — Cosmic Ascension</footer>
 
 <script>
-// Auth Protection
-ZeroX.onAuthChange(user => {
-    if (!user) window.location.href = "login.html";
-});
-
-// =============================
-// 20 SECURE RANK CODES
-// =============================
-const rankCodes = {
-    "VX9e!mA2Qf#7": "Starlight Beginner",
-    "pL4$X7wq@D8r": "Night Sky Explorer",
-    "Zu1!kM9#Tf4P": "Lens Apprentice",
-    "R3q%vB!8nL2s": "Star Tracker",
-    "yT7@Fh2$Qm6K": "Deep-Sky Learner",
-    "Jx8&bP1!Zw4r": "Celestial Shooter",
-    "mQ9@tC5#Hv2E": "Cosmic Observer",
-    "Wf3!Zk7%Ua9p": "Galaxy Seeker",
-    "Tg6$R2n@Yp4V": "Nebula Hunter",
-    "Bq1!S8m%Xe7H": "Meteor Master",
-    "Fv4#hP9*Ld3C": "Astro Voyager",
-    "Kw2!R7q@Mz6S": "Sky Illumination Pro",
-    "Pj3$N8l#Tc5A": "Cosmic Artisan",
-    "Sf9@xB4!Hm1D": "Interstellar Photographer",
-    "Lk5#Q2n!Vz8M": "Deep-Space Elite",
-    "Rg7!Wm3$Td9F": "Astro Imaging Expert",
-    "Uc8@Kp6#Hb2L": "Galactic Master",
-    "Yn4!Sd1%Xj7Q": "Nebula Grandmaster",
-    "Zt6#Mw8@Pc3F": "Celestial Legend",
-    "Qx9$Fe5!Vr2B": "Universe Prime"
-};
-
-// =============================
-// REDEEM FUNCTION
-// =============================
-function redeemCode() {
-    const input = document.getElementById("codeInput").value.trim();
-    const status = document.getElementById("status");
-
-    if (!rankCodes[input]) {
-        status.textContent = "❌ INVALID CODE";
-        status.style.color = "#ff3030";
-        return;
-    }
-
-    const db = firebase.firestore();
-    const user = ZeroX.user();
-
-    db.collection("usedCodes").doc(input).get().then(doc => {
-        if (doc.exists) {
-            status.textContent = "❌ CODE ALREADY REDEEMED";
-            status.style.color = "#ff3030";
-            return;
-        }
-
-        db.collection("usedCodes").doc(input).set({
-            usedBy: user.uid,
-            usedAt: Date.now()
-        });
-
-        db.collection("users").doc(user.uid).update({
-            rank: rankCodes[input],
-            badge: rankCodes[input]
-        }).then(() => {
-            status.textContent = "✔ RANK UNLOCKED: " + rankCodes[input];
-            status.style.color = "#72fe95";
-            document.getElementById("codeInput").value = "";
-        });
-    });
-}
-
-// =============================
 // FIXED STARFIELD
-// =============================
-const canvas=document.getElementById('stars');
-const ctx=canvas.getContext('2d');
-let w=canvas.width=innerWidth,h=canvas.height=innerHeight;
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
 
-const stars=[];
-for(let i=0;i<1400;i++){
-    stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*3,s:Math.random()*1+0.3});
-}
-function animate(){
-    ctx.clearRect(0,0,w,h);
-    ctx.fillStyle="#9acd32";
-    stars.forEach(s=>{
-        ctx.globalAlpha=s.s;
-        ctx.beginPath();
-        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-        ctx.fill();
-        s.y+=1.4;
-        if(s.y>h) s.y=0;
+let w = canvas.width = innerWidth;
+let h = canvas.height = innerHeight;
+
+let stars = [];
+const count = 900;
+
+for (let i = 0; i < count; i++) {
+    stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 3,
+        s: Math.random() * 0.8 + 0.2
     });
+}
+
+function animate() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "#9acd32";
+
+    stars.forEach(s => {
+        ctx.globalAlpha = s.s;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+        s.y += 0.8;
+        if (s.y > h) s.y = 0;
+    });
+
     requestAnimationFrame(animate);
 }
 animate();
-window.addEventListener('resize',()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;});
+
+window.addEventListener("resize", () => {
+    w = canvas.width = innerWidth;
+    h = canvas.height = innerHeight;
+});
 </script>
 
 </body>
