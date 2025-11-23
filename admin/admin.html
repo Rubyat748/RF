@@ -2,238 +2,241 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ZTA – Admin Panel</title>
+<title>ZTA Admin Panel</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@300;600;900&display=swap" rel="stylesheet">
-
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-    font-family:'Exo 2',sans-serif;
-    background:#000;
-    color:#fff;
-    background:radial-gradient(circle at 20% 80%,#0b0327,#000 70%);
+* { margin:0; padding:0; box-sizing:border-box; font-family: "Poppins", sans-serif; }
+body { background:#000; color:#fff; overflow:hidden; }
+
+#stars {
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0; left:0;
+    z-index:-1;
 }
 
-/* NAVBAR */
-.navbar{
-    position:fixed;top:0;width:100%;padding:25px 5%;display:flex;
-    justify-content:space-between;align-items:center;z-index:999;
-    background:rgba(10,5,40,0.44);backdrop-filter:blur(25px);
-    border-bottom:2px solid rgba(154,205,50,0.3);
-}
-.logo{
-    font-family:'Orbitron',sans-serif;font-size:40px;font-weight:900;
-    letter-spacing:16px;background:linear-gradient(90deg,#9acd32,#72fe95);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+/* ---------------------------- */
+/*      ADMIN PANEL UI          */
+/* ---------------------------- */
+
+.header {
+    background:#0f0f16;
+    padding:20px;
+    font-size:30px;
+    text-align:center;
+    letter-spacing:3px;
+    border-bottom:2px solid #1aff9c;
 }
 
-/* LAYOUT */
-.container{
-    max-width:1400px;margin:160px auto 80px;padding:0 4%;
-}
-.section-title{
-    font-family:'Orbitron';font-size:46px;margin-bottom:40px;
-    background:linear-gradient(90deg,#9acd32,#c6ff7a);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+.container {
+    padding:20px;
+    height:87vh;
+    overflow-y:auto;
 }
 
-/* ADMIN GRID */
-.admin-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
-    gap:40px;
+.searchBox {
+    width:100%;
+    padding:12px;
+    font-size:18px;
+    border:2px solid #1aff9c;
+    background:#111;
+    color:#1aff9c;
+    margin-bottom:20px;
+    border-radius:8px;
 }
 
-.admin-card{
-    background:rgba(20,10,60,0.55);
-    padding:35px;border-radius:30px;
-    border:2px solid rgba(154,205,50,0.3);
-    backdrop-filter:blur(15px);
-    box-shadow:0 20px 60px rgba(154,205,50,0.3);
-}
-.admin-card h3{
-    font-size:26px;margin-bottom:25px;
-    background:linear-gradient(90deg,#9acd32,#72fe95);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+.table {
+    width:100%;
+    border-collapse:collapse;
 }
 
-/* TABLE */
-table{
-    width:100%;border-collapse:collapse;margin-top:20px;
-}
-th,td{
-    padding:14px 10px;text-align:left;
-    border-bottom:1px solid rgba(255,255,255,0.1);
-}
-th{
-    color:#9acd32;font-size:18px;font-weight:900;
+.table th {
+    padding:15px;
+    background:#111;
+    color:#1aff9c;
+    font-size:18px;
+    border-bottom:2px solid #1aff9c;
 }
 
-/* BUTTONS */
-.btn{
-    padding:10px 20px;border-radius:10px;
-    border:none;cursor:pointer;font-weight:700;
-    margin:6px 4px;
-}
-.btn-edit{background:#72fe95;color:#000;}
-.btn-delete{background:#ff4444;color:#fff;}
-.btn-ban{background:#ff9933;color:#000;}
-.btn-unban{background:#0099ff;color:#fff;}
-
-/* INPUT */
-select, input{
-    padding:10px;width:100%;margin-top:10px;margin-bottom:18px;
-    border-radius:8px;border:none;font-size:16px;
+.table td {
+    padding:12px;
+    border-bottom:1px solid #333;
 }
 
-/* FOOTER */
-footer{text-align:center;padding:80px 20px;color:#555;font-size:16px;}
+.rank-badge {
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:14px;
+    color:#000;
+    font-weight:bold;
+}
+
+/* Dynamic rank colors */
+[data-rank="Starlight Beginner"] { background:#b3faff; }
+[data-rank="Night Sky Explorer"] { background:#7bf0ff; }
+[data-rank="Star Tracker"] { background:#6dff97; }
+[data-rank="Meteor Master"] { background:#ffe073; }
+[data-rank="Galaxy Seeker"] { background:#ffb6b6; }
+[data-rank="Universe Prime"] { background:#ff5b5b; }
+
+/* Buttons */
+.btn {
+    padding:8px 14px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin-right:5px;
+}
+
+.btn-delete { background:#ff4d4d; color:#000; }
+.btn-rank { background:#1aff9c; color:#000; }
 </style>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-    <div class="logo">ZTA ADMIN</div>
-    <a href="profile.html" style="color:#72fe95;font-weight:900;">Back to Profile</a>
-</div>
+<canvas id="stars"></canvas>
+
+<div class="header">🔥 ZTA ADMIN PANEL 🔥</div>
 
 <div class="container">
-    <h1 class="section-title">Admin Control Center</h1>
 
-    <div class="admin-grid">
+    <input type="text" id="search" class="searchBox" placeholder="Search user by name, email, rank...">
 
-        <!-- USERS MANAGER -->
-        <div class="admin-card">
-            <h3>All Users</h3>
-            <div id="userList">Loading users...</div>
-        </div>
-
-        <!-- STATS -->
-        <div class="admin-card">
-            <h3>Site Statistics</h3>
-            <p>Total Members: <span id="statMembers">0</span></p>
-            <p>Total Images: <span id="statImages">0</span></p>
-            <p>Total Likes: <span id="statLikes">0</span></p>
-        </div>
-
-        <!-- RANK EDITOR -->
-        <div class="admin-card">
-            <h3>Edit User Rank</h3>
-            <input type="text" id="rankUserId" placeholder="Enter User UID">
-            <select id="rankSelect">
-                <option value="Beginner">Beginner</option>
-                <option value="Silver">Silver</option>
-                <option value="Gold">Gold</option>
-                <option value="Diamond">Diamond</option>
-                <option value="Cosmic Master">Cosmic Master</option>
-            </select>
-            <button class="btn btn-edit" onclick="updateRank()">Update Rank</button>
-        </div>
-
-        <!-- BAN SYSTEM -->
-        <div class="admin-card">
-            <h3>Ban / Unban User</h3>
-            <input type="text" id="banUserId" placeholder="User UID">
-            <button class="btn btn-ban" onclick="banUser()">Ban User</button>
-            <button class="btn btn-unban" onclick="unbanUser()">Unban User</button>
-        </div>
-
-    </div>
+    <table class="table" id="userTable">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Rank</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="membersBody">
+        </tbody>
+    </table>
 </div>
 
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
-// ADMIN AUTH CHECK
-ZeroX.onAuthChange(admin=>{
-    if(!admin || admin.email!=="youradminemail@domain.com"){
-        alert("Access denied. Admins only.");
-        window.location.href="login.html";
+// YOUR FIREBASE CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyDelkwsOVmHcGrP4MV6o0weFrPyrjsExvM",
+  authDomain: "zerox-a7ed6.firebaseapp.com",
+  projectId: "zerox-a7ed6",
+  storageBucket: "zerox-a7ed6.firebasestorage.app",
+  messagingSenderId: "847831795606",
+  appId: "1:847831795606:web:43f71bc1cc8f7f9bbe7fb7",
+  measurementId: "G-MCRR6C3XQ8"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const membersBody = document.getElementById("membersBody");
+const search = document.getElementById("search");
+
+// LIVE LOAD ALL USERS
+db.collection("users").onSnapshot(res => {
+    membersBody.innerHTML = "";
+
+    res.forEach(doc => {
+        const u = doc.data();
+        const id = doc.id;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${u.name || "No Name"}</td>
+            <td>${u.email || "No Email"}</td>
+            <td><span class="rank-badge" data-rank="${u.rank || "None"}">${u.rank || "None"}</span></td>
+
+            <td>
+                <button class="btn btn-rank" onclick="editRank('${id}')">Rank</button>
+                <button class="btn btn-delete" onclick="deleteUser('${id}')">Delete</button>
+            </td>
+        `;
+
+        membersBody.appendChild(tr);
+    });
+});
+
+// DELETE USER
+function deleteUser(uid) {
+    if (!confirm("Delete this user?")) return;
+    db.collection("users").doc(uid).delete();
+    alert("User deleted!");
+}
+
+// EDIT RANK
+function editRank(uid) {
+    const newRank = prompt("Enter new rank:");
+
+    if (!newRank) return;
+
+    db.collection("users").doc(uid).update({
+        rank: newRank
+    });
+
+    alert("Rank updated!");
+}
+
+// SEARCH
+search.addEventListener("keyup", () => {
+    let v = search.value.toLowerCase();
+    let rows = membersBody.getElementsByTagName("tr");
+
+    for (let row of rows) {
+        let txt = row.innerText.toLowerCase();
+        row.style.display = txt.includes(v) ? "" : "none";
     }
 });
 
-// LIVE USERS LOADING
-firebase.firestore().collection("users")
-.onSnapshot(snapshot=>{
-    let html = `
-    <table>
-        <tr>
-            <th>Avatar</th>
-            <th>Name</th>
-            <th>Rank</th>
-            <th>Actions</th>
-        </tr>`;
+/* ---------------------------------- */
+/* STARFIELD BACKGROUND               */
+/* ---------------------------------- */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+let w = canvas.width = innerWidth;
+let h = canvas.height = innerHeight;
 
-    snapshot.forEach(doc=>{
-        const u=doc.data();
+let stars = [];
+for (let i=0;i<1000;i++){
+    stars.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: Math.random()*2,
+        s: Math.random()*1+0.2
+    });
+}
 
-        html += `
-        <tr>
-            <td><img src="${u.avatar}" width="50" height="50" style="border-radius:50%;"></td>
-            <td>${u.name || "No name"}</td>
-            <td>${u.rank || "Beginner"}</td>
-            <td>
-                <button class="btn btn-edit" onclick="quickRank('${doc.id}')">Rank</button>
-                <button class="btn btn-delete" onclick="deleteUser('${doc.id}')">Delete</button>
-                <button class="btn btn-ban" onclick="banUser('${doc.id}')">Ban</button>
-            </td>
-        </tr>`;
+function animate() {
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle="#1aff9c";
+
+    stars.forEach(s=>{
+        ctx.globalAlpha=s.s;
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,2*Math.PI);
+        ctx.fill();
+        s.y +=0.6;
+        if(s.y>h) s.y=0;
     });
 
-    html += `</table>`;
-    document.getElementById("userList").innerHTML = html;
+    requestAnimationFrame(animate);
+}
+animate();
 
-    document.getElementById("statMembers").textContent = snapshot.size;
+window.addEventListener("resize",()=>{
+    w=canvas.width=innerWidth;
+    h=canvas.height=innerHeight;
 });
-
-// UPDATE RANK
-function updateRank(){
-    const uid = document.getElementById("rankUserId").value;
-    const rank = document.getElementById("rankSelect").value;
-
-    firebase.firestore().collection("users").doc(uid).update({rank})
-    .then(()=>alert("Rank Updated"))
-    .catch(err=>alert(err.message));
-}
-
-function quickRank(uid){
-    document.getElementById("rankUserId").value = uid;
-    window.scrollTo({top:0,behavior:'smooth'});
-}
-
-// BAN USER
-function banUser(uid){
-    if(!uid) uid = document.getElementById("banUserId").value;
-
-    firebase.firestore().collection("banned").doc(uid).set({banned:true})
-    .then(()=>alert("User Banned"));
-}
-
-// UNBAN
-function unbanUser(){
-    const uid = document.getElementById("banUserId").value;
-
-    firebase.firestore().collection("banned").doc(uid).delete()
-    .then(()=>alert("User Unbanned"));
-}
-
-// DELETE USER DATA (Firestore only)
-function deleteUser(uid){
-    if(!confirm("Delete user data?")) return;
-
-    firebase.firestore().collection("users").doc(uid).delete()
-    .then(()=>alert("User Data Deleted"));
-}
 </script>
-
-<footer>© 2025 ZTA — Admin Control System</footer>
 
 </body>
 </html>
