@@ -157,7 +157,7 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
         </div>
 
         <div class="actions">
-            <a href="gallery.html" class="btn btn-primary">My Gallery</a>
+            <a href="members.html" class="btn btn-primary">My Gallery</a>
             <a href="members.html" class="btn btn-primary">Members Gallery</a>
             <a href="rank.html" class="btn btn-primary">Redeem Rank</a>
             <a href="logout.html" class="btn btn-logout">Logout</a>
@@ -175,7 +175,7 @@ footer{text-align:center;padding:120px 20px;color:#555;font-size:17px;
 <script src="firebase.js"></script>
 
 <script>
-// FULLY PROTECTED + LIVE RANK FROM rank.html / Firestore
+// FULLY PROTECTED + LIVE RANK + PERFECT NAVIGATION
 ZeroX.onAuthChange(user => {
     if (!user) {
         alert("Please log in to view your profile");
@@ -187,7 +187,7 @@ ZeroX.onAuthChange(user => {
     document.getElementById("authButton").textContent = "Profile";
     document.getElementById("authButton").href = "profile.html";
 
-    // Basic info
+    // User info
     document.getElementById("userName").textContent = user.displayName || "Cosmonaut";
     document.getElementById("userEmail").textContent = user.email;
     document.getElementById("userAvatar").src = user.photoURL || "assets/default-avatar.jpg";
@@ -196,13 +196,11 @@ ZeroX.onAuthChange(user => {
     document.getElementById("memberSince").textContent = created.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
     document.getElementById("daysActive").textContent = Math.floor((Date.now() - created.getTime()) / 86400000);
 
-    // LIVE RANK FROM FIRESTORE (set by rank.html)
-    const userDoc = firebase.firestore().collection("users").doc(user.uid);
-    userDoc.onSnapshot(doc => {
+    // LIVE RANK FROM FIRESTORE
+    firebase.firestore().collection("users").doc(user.uid).onSnapshot(doc => {
         if (doc.exists) {
             const data = doc.data();
-            const rank = data.rank || "Starlight Beginner";
-            document.getElementById("rankLevel").textContent = rank;
+            document.getElementById("rankLevel").textContent = data.rank || "Starlight Beginner";
             document.getElementById("totalCaptures").textContent = data.captures || 0;
             document.getElementById("totalLikes").textContent = data.likes || 0;
         } else {
@@ -211,7 +209,7 @@ ZeroX.onAuthChange(user => {
     });
 });
 
-// AVATAR UPLOAD — 100% WORKING
+// AVATAR UPLOAD
 document.getElementById("avatarUpload").addEventListener("change", e => {
     const file = e.target.files[0];
     if (!file) return;
