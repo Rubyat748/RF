@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZTA – Signing Out...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Exo+2:wght@600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    font-family:'Exo 2',sans-serif;background:#000;color:#fff;
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;overflow:hidden;
+    background:radial-gradient(circle at 50% 50%, #0f0529 0%, #000 70%);
+}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0.7;}
+
+/* Goodbye Message */
+.message{
+    text-align:center;z-index:10;position:relative;
+}
+.title{
+    font-family:'Orbitron',sans-serif;font-size:clamp(60px,14vw,140px);
+    background:linear-gradient(90deg,#9acd32,#c6ff7a,#9acd32);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    text-shadow:0 0 120px #9acd32;
+    animation:fadeOut 3s ease-out forwards;
+}
+.subtitle{
+    font-size:28px;color:#72fe95;margin-top:30px;
+    opacity:0;animation:fadeIn 2s ease-out 1s forwards;
+}
+.redirect{
+    margin-top:50px;font-size:20px;color:#aaa;
+    opacity:0;animation:fadeIn 2s ease-out 2.5s forwards;
+}
+
+/* Animations */
+@keyframes fadeOut{
+    0%{opacity:1;transform:scale(1);}
+    100%{opacity:0;transform:scale(1.5);}
+}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(30px);}
+    to{opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="message">
+    <h1 class="title">SEE YOU AMONG THE STARS</h1>
+    <p class="subtitle">You've been signed out safely</p>
+    <p class="redirect">Redirecting to home in <span id="countdown">5</span> seconds...</p>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+// LOGOUT + REDIRECT
+ZeroX.logout().then(() => {
+    let seconds = 5;
+    const countdown = document.getElementById("countdown");
+    const timer = setInterval(() => {
+        seconds--;
+        countdown.textContent = seconds;
+        if (seconds <= 0) {
+            clearInterval(timer);
+            window.location.href = "index.html";
+        }
+    }, 1000);
+});
+
+// Starfield Explosion Effect
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let w = canvas.width = innerWidth;
+let h = canvas.height = innerHeight;
+const particles = [];
+
+for(let i = 0; i < 600; i++){
+    particles.push({
+        x: w/2,
+        y: h/2,
+        vx: (Math.random()-0.5)*15,
+        vy: (Math.random()-0.5)*15,
+        r: Math.random()*4 + 1,
+        alpha: 1
+    });
+}
+
+function animate(){
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0,0,w,h);
+    particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.01;
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = "#9acd32";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+    });
+    if(particles[0].alpha > 0) requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener('resize',()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;});
+</script>
+</body>
+</html>
